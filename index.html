@@ -19,6 +19,7 @@
             font-family: 'Inter', sans-serif; 
             overflow-x: hidden; 
             color: var(--brand-text);
+            -webkit-tap-highlight-color: transparent;
         }
         
         h1, h2, h3, h4 { 
@@ -180,25 +181,72 @@
             box-shadow: 0 0 10px var(--brand-gold);
         }
 
-        .testimonial-card {
+        /* Carousel Track Systems */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding: 1.5rem 0;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+            padding: 0 1rem;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .testimonial-card, .gallery-card {
             background: white;
             border-radius: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+        }
+
+        .testimonial-card {
             padding: 2rem;
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.03), 0 8px 10px -6px rgba(0,0,0,0.03);
             border: 1px solid rgba(241, 245, 249, 0.8);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 300px;
+            margin-right: 1.5rem;
+        }
+
+        .gallery-card {
+            width: 280px;
+            height: 400px;
+            overflow: hidden;
+            border: 8px solid white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            position: relative;
+            margin-right: 2rem;
         }
 
         @media (min-width: 768px) {
             .testimonial-card {
                 padding: 3rem;
+                width: 450px;
+            }
+            .gallery-card {
+                width: 380px;
+                height: 500px;
             }
         }
         
-        .testimonial-card:hover {
+        .testimonial-card:hover, .gallery-card:hover {
             transform: translateY(-12px);
-            box-shadow: 0 30px 60px -12px rgba(29, 181, 166, 0.18);
-            border-color: rgba(29, 181, 166, 0.3);
+            box-shadow: 0 40px 80px -15px rgba(0,0,0,0.1);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.1);
         }
 
         #mobile-menu {
@@ -230,6 +278,19 @@
         .premium-shadow {
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08);
         }
+
+        /* Fix for Lucide icons hiding on hover/active - FORCED INHERITANCE */
+        .highlight-card:hover svg, 
+        .highlight-card:active svg,
+        .highlight-card.active svg {
+            stroke: #ffffff !important;
+            opacity: 1 !important;
+        }
+
+        .highlight-card svg {
+            stroke: currentColor;
+            transition: stroke 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+        }
     </style>
 </head>
 <body class="bg-[#fcfdfd] scroll-smooth">
@@ -237,22 +298,19 @@
     <!-- Navigation -->
     <nav class="glass-nav sticky top-0 z-[100] border-b border-white/40 py-2 md:py-4 px-4 md:px-8 flex justify-between items-center transition-all duration-300">
         <div class="flex items-center gap-3 md:gap-6">
-            <!-- Increased Logo Scaling -->
             <div class="h-16 md:h-32 w-16 md:w-32 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:scale-105">
                 <img src="assets/logo.png" alt="Clinic Logo" class="h-full w-full object-contain">
             </div>
             <div class="flex flex-col">
-                <!-- Increased Brand Header Image Scaling -->
                 <img src="assets/header.png" alt="Dr. Reddy's Branding" class="h-10 md:h-24 object-contain drop-shadow-sm">
             </div>
         </div>
         
-        <!-- Desktop Menu -->
         <div class="hidden lg:flex gap-12 text-sm font-bold uppercase tracking-widest">
             <a href="#what-we-do" class="nav-link transition">What We Do</a>
-            <a href="#benefits" class="nav-link transition">Benefits</a>
-            <a href="#testimonials" class="nav-link transition">Reviews</a>
             <a href="#procedures" class="nav-link transition">Procedures</a>
+            <a href="#gallery" class="nav-link transition">Gallery</a>
+            <a href="#testimonials" class="nav-link transition">Reviews</a>
         </div>
 
         <div class="flex items-center gap-2 md:gap-4">
@@ -278,9 +336,9 @@
             </div>
             <div class="flex flex-col gap-8 text-3xl font-black" style="color: var(--brand-text);">
                 <a href="#what-we-do" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">What We Do</a>
-                <a href="#benefits" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">Benefits</a>
+                <a href="#procedures" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">Procedures</a>
+                <a href="#gallery" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">Gallery</a>
                 <a href="#testimonials" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">Reviews</a>
-                <a href="#symptoms" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">Symptoms</a>
                 <a href="#doctor-profile" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">About Doctor</a>
             </div>
             <div class="mt-auto pb-12">
@@ -290,7 +348,7 @@
         </div>
     </div>
 
-    <!-- Animated Slider Hero Section -->
+    <!-- Hero Section -->
     <section class="bg-white py-6 md:py-12 px-4 md:px-12 lg:px-24">
         <div class="max-w-7xl mx-auto">
             <div class="slide-container group border-[4px] md:border-[6px] border-slate-50/50">
@@ -318,31 +376,32 @@
                 <span class="w-2 h-2 bg-orange-brand rounded-full animate-pulse"></span> First Time in Bhalki
             </div>
             <h3 class="text-3xl md:text-6xl font-extrabold mb-6 md:mb-10 leading-tight" style="color: var(--brand-text);">Day Care Ano-rectal Clinic</h3>
-            <p class="text-base md:text-xl max-w-4xl mx-auto leading-relaxed mb-12 md:mb-20 opacity-90 px-2" style="color: var(--brand-text);">
-                A fully fledged setup with a well-equipped <strong>Operation Theatre</strong>. We offer safe and natural classical procedures like <strong>Kshara Karma</strong> and <strong>Kshara Sutra</strong> with <strong>Advanced Laser Technology</strong>.
-            </p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10">
-                <div class="bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 group text-center">
-                    <div class="bg-teal-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-teal-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="activity" class="text-teal-brand opacity-80 group-hover:opacity-100 group-hover:text-white transition-all duration-300 w-6 h-6 md:w-10 md:h-10"></i>
+                <!-- Vessel Sealer -->
+                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
+                    <div class="bg-teal-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-teal-brand group-active:bg-teal-brand transition-all duration-500 group-hover:scale-110">
+                        <i data-lucide="activity" class="text-teal-brand group-hover:text-white group-active:text-white transition-colors duration-300 w-6 h-6 md:w-10 md:h-10"></i>
                     </div>
                     <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Vessel Sealer</h5>
                 </div>
-                <div class="bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 group text-center">
-                    <div class="bg-orange-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-orange-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="zap" class="text-orange-brand opacity-80 group-hover:opacity-100 group-hover:text-white transition-all duration-300 w-6 h-6 md:w-10 md:h-10"></i>
+                <!-- Radio Frequency -->
+                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
+                    <div class="bg-orange-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-orange-brand group-active:bg-orange-brand transition-all duration-500 group-hover:scale-110">
+                        <i data-lucide="zap" class="text-orange-brand group-hover:text-white group-active:text-white transition-colors duration-300 w-6 h-6 md:w-10 md:h-10"></i>
                     </div>
                     <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Radio Frequency</h5>
                 </div>
-                <div class="bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 group text-center">
-                    <div class="bg-gold-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-gold-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="microscope" class="text-gold-brand opacity-80 group-hover:opacity-100 group-hover:text-white transition-all duration-300 w-6 h-6 md:w-10 md:h-10"></i>
+                <!-- Advanced Laser -->
+                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
+                    <div class="bg-gold-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-gold-brand group-active:bg-gold-brand transition-all duration-500 group-hover:scale-110">
+                        <i data-lucide="microscope" class="text-gold-brand group-hover:text-white group-active:text-white transition-colors duration-300 w-6 h-6 md:w-10 md:h-10"></i>
                     </div>
                     <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Advanced Laser</h5>
                 </div>
-                <div class="bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 group text-center">
-                    <div class="bg-teal-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-teal-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="utensils" class="text-teal-brand opacity-80 group-hover:opacity-100 group-hover:text-white transition-all duration-300 w-6 h-6 md:w-10 md:h-10"></i>
+                <!-- Dietary Guidance -->
+                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
+                    <div class="bg-teal-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-teal-brand group-active:bg-teal-brand transition-all duration-500 group-hover:scale-110">
+                        <i data-lucide="utensils" class="text-teal-brand group-hover:text-white group-active:text-white transition-colors duration-300 w-6 h-6 md:w-10 md:h-10"></i>
                     </div>
                     <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Dietary Guidance</h5>
                 </div>
@@ -350,60 +409,34 @@
         </div>
     </section>
 
-    <!-- What We Do Section -->
+    <!-- Specialized Care -->
     <section id="what-we-do" class="py-16 md:py-32 px-4 md:px-6 bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 md:mb-24 fade-in">
-                <span class="text-gold-brand font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] text-[11px] md:text-[13px] mb-6 block">Specialized Proctology Care</span>
-                <h3 class="text-3xl md:text-5xl font-extrabold mb-6 md:mb-8" style="color: var(--brand-text);">What We Do At Our Center</h3>
-                <div class="w-20 md:w-24 h-1 md:h-1.5 bg-gradient-to-r from-teal-400 to-teal-600 mx-auto rounded-full"></div>
+                <span class="text-gold-brand font-bold uppercase tracking-[0.3em] text-[11px] md:text-[13px] mb-6 block">Specialized Proctology Care</span>
+                <h3 class="text-3xl md:text-5xl font-extrabold mb-6 md:mb-8">What We Do At Our Center</h3>
+                <div class="w-20 md:w-24 h-1.5 bg-gradient-to-r from-teal-400 to-teal-600 mx-auto rounded-full"></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                <!-- Piles -->
-                <div class="bg-slate-50/50 p-8 md:p-12 rounded-3xl md:rounded-[3.5rem] border-2 border-transparent card-interaction group">
-                    <div class="flex flex-col lg:flex-row gap-6 md:gap-10 items-start lg:items-center">
-                        <div class="w-16 h-16 md:w-24 md:h-24 bg-white text-teal-brand rounded-2xl md:rounded-[2rem] flex-shrink-0 flex items-center justify-center shadow-md group-hover:scale-110 transition-all duration-500 group-hover:bg-teal-brand group-hover:text-white mx-auto lg:mx-0">
-                            <i data-lucide="leaf" class="w-8 h-8 md:w-12 md:h-12 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                <div class="bg-slate-50/50 p-8 rounded-3xl border-2 border-transparent card-interaction group">
+                    <div class="flex flex-col lg:flex-row gap-6 items-center">
+                        <div class="w-20 h-20 bg-white text-teal-brand rounded-2xl flex-shrink-0 flex items-center justify-center shadow-md group-hover:bg-teal-brand group-hover:text-white transition-all">
+                            <i data-lucide="leaf" class="w-10 h-10"></i>
                         </div>
-                        <div class="text-center lg:text-left w-full">
-                            <h4 class="text-xl md:text-2xl font-bold mb-3 md:mb-5 tracking-tight" style="color: var(--brand-text);">PILES (Hemorrhoids)</h4>
-                            <p class="leading-relaxed text-sm md:text-lg opacity-90" style="color: var(--brand-text);">For initial stages we offer <strong>Ayurvedic formulations</strong> to avoid surgery & for advanced stages we offer our signature treatment <strong>Ksharakarma</strong>.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Fistula -->
-                <div class="bg-slate-50/50 p-8 md:p-12 rounded-3xl md:rounded-[3.5rem] border-2 border-transparent card-interaction group">
-                    <div class="flex flex-col lg:flex-row gap-6 md:gap-10 items-start lg:items-center">
-                        <div class="w-16 h-16 md:w-24 md:h-24 bg-white text-orange-brand rounded-2xl md:rounded-[2rem] flex-shrink-0 flex items-center justify-center shadow-md group-hover:scale-110 transition-all duration-500 group-hover:bg-orange-brand group-hover:text-white mx-auto lg:mx-0">
-                            <i data-lucide="git-branch" class="w-8 h-8 md:w-12 md:h-12 opacity-80 group-hover:opacity-100 transition-opacity"></i>
-                        </div>
-                        <div class="text-center lg:text-left w-full">
-                            <h4 class="text-xl md:text-2xl font-bold mb-3 md:mb-5 tracking-tight" style="color: var(--brand-text);">FISTULA-in-ANO</h4>
-                            <p class="leading-relaxed text-sm md:text-lg opacity-90" style="color: var(--brand-text);">Utilizing the specialized <strong>IFTak technique</strong> to complement <strong>Kshara Sutra</strong> for the most effective and safe cure.</p>
+                        <div class="text-center lg:text-left">
+                            <h4 class="text-xl font-bold mb-2">PILES (Hemorrhoids)</h4>
+                            <p class="text-sm opacity-90">Ayurvedic formulations for initial stages & signature Ksharakarma for advanced relief.</p>
                         </div>
                     </div>
                 </div>
-                <!-- Fissure -->
-                <div class="bg-slate-50/50 p-8 md:p-12 rounded-3xl md:rounded-[3.5rem] border-2 border-transparent card-interaction group">
-                    <div class="flex flex-col lg:flex-row gap-6 md:gap-10 items-start lg:items-center">
-                        <div class="w-16 h-16 md:w-24 md:h-24 bg-white text-gold-brand rounded-2xl md:rounded-[2rem] flex-shrink-0 flex items-center justify-center shadow-md group-hover:scale-110 transition-all duration-500 group-hover:bg-gold-brand group-hover:text-white mx-auto lg:mx-0">
-                            <i data-lucide="activity" class="w-8 h-8 md:w-12 md:h-12 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                <div class="bg-slate-50/50 p-8 rounded-3xl border-2 border-transparent card-interaction group">
+                    <div class="flex flex-col lg:flex-row gap-6 items-center">
+                        <div class="w-20 h-20 bg-white text-orange-brand rounded-2xl flex-shrink-0 flex items-center justify-center shadow-md group-hover:bg-orange-brand group-hover:text-white transition-all">
+                            <i data-lucide="git-branch" class="w-10 h-10"></i>
                         </div>
-                        <div class="text-center lg:text-left w-full">
-                            <h4 class="text-xl md:text-2xl font-bold mb-3 md:mb-5 tracking-tight" style="color: var(--brand-text);">ANAL FISSURE</h4>
-                            <p class="leading-relaxed text-sm md:text-lg opacity-90" style="color: var(--brand-text);"><strong>Matravasti</strong> paired with Ayurvedic anal sphincter relaxation for pain-free healing and immediate relief.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Pilonidal -->
-                <div class="bg-slate-50/50 p-8 md:p-12 rounded-3xl md:rounded-[3.5rem] border-2 border-transparent card-interaction group">
-                    <div class="flex flex-col lg:flex-row gap-6 md:gap-10 items-start lg:items-center">
-                        <div class="w-16 h-16 md:w-24 md:h-24 bg-slate-900 text-white rounded-2xl md:rounded-[2rem] flex-shrink-0 flex items-center justify-center shadow-md group-hover:scale-110 transition-all duration-500 mx-auto lg:mx-0">
-                            <i data-lucide="target" class="w-8 h-8 md:w-12 md:h-12 opacity-80 group-hover:opacity-100 transition-opacity"></i>
-                        </div>
-                        <div class="text-center lg:text-left w-full">
-                            <h4 class="text-xl md:text-2xl font-bold mb-3 md:mb-5 tracking-tight" style="color: var(--brand-text);">PILONIDAL SINUS</h4>
-                            <p class="leading-relaxed text-sm md:text-lg opacity-90" style="color: var(--brand-text);">New technique of <strong>Kshara Karma</strong> with the assistance of <strong>Advanced Laser</strong> technology for permanent recovery.</p>
+                        <div class="text-center lg:text-left">
+                            <h4 class="text-xl font-bold mb-2">FISTULA-in-ANO</h4>
+                            <p class="text-sm opacity-90">Specialized IFTak technique with Kshara Sutra for high success and safety.</p>
                         </div>
                     </div>
                 </div>
@@ -411,148 +444,88 @@
         </div>
     </section>
 
-    <!-- Other Services Section -->
-    <section id="procedures" class="py-16 md:py-32 px-4 md:px-6 bg-slate-50">
+    <!-- Clinical Success Gallery -->
+    <section id="gallery" class="py-20 md:py-32 px-4 md:px-6 bg-white overflow-hidden border-t border-slate-50">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 md:mb-24 fade-in">
-                <span class="text-teal-brand font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] text-[11px] md:text-[13px] mb-6 block">Comprehensive Care</span>
-                <h3 class="text-3xl md:text-5xl font-extrabold mb-6 md:mb-8" style="color: var(--brand-text);">Other Procedures We Offer</h3>
-                <div class="w-20 md:w-24 h-1 md:h-1.5 bg-gradient-to-r from-gold-400 to-gold-600 mx-auto rounded-full"></div>
+                <span class="text-orange-brand font-bold uppercase tracking-[0.3em] text-[11px] mb-6 block">Visual Documentation</span>
+                <h3 class="text-3xl md:text-[2.5rem] font-extrabold mb-8">Clinical Success Gallery</h3>
+                <div class="w-24 h-1.5 bg-gradient-to-r from-orange-400 to-orange-600 mx-auto rounded-full"></div>
+                <p class="mt-8 text-slate-500 max-w-2xl mx-auto italic">High-quality medical imaging documenting successful patient recovery at our Bhalki center.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                <!-- Service Cards -->
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-teal-50 text-teal-brand rounded-2xl group-hover:bg-teal-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="shield-plus" class="w-6 h-6 opacity-80 group-hover:opacity-100"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg" style="color: var(--brand-text);">Medical Management for Piles – Kshara Karma</span>
+
+            <div class="carousel-container">
+                <div id="gallery-track" class="carousel-track">
+                    <!-- Cards will be rendered by JS -->
                 </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-orange-50 text-orange-brand rounded-2xl group-hover:bg-orange-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="git-merge" class="w-6 h-6 opacity-80 group-hover:opacity-100"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg" style="color: var(--brand-text);">IFTAK With Kshara Sutra For Complex Fistula</span>
+            </div>
+
+            <div class="flex items-center justify-center mt-12 gap-8">
+                <div class="flex gap-4">
+                    <button onclick="scrollGallery('left')" class="p-5 rounded-full bg-white border border-slate-200 text-orange-brand hover:bg-orange-brand hover:text-white transition-all shadow-xl active:scale-90">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <button onclick="scrollGallery('right')" class="p-5 rounded-full bg-white border border-slate-200 text-orange-brand hover:bg-orange-brand hover:text-white transition-all shadow-xl active:scale-90">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
                 </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-blue-50 text-blue-600 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                        <i data-lucide="video" class="w-6 h-6 opacity-80 group-hover:opacity-100"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg" style="color: var(--brand-text);">Arshoscopy (Videography)</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-teal-50 text-teal-brand rounded-2xl group-hover:bg-teal-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="microscope" class="w-6 h-6 opacity-80 group-hover:opacity-100"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg" style="color: var(--brand-text);">Mucopexy</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-orange-50 text-orange-brand rounded-2xl group-hover:bg-orange-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="zap" class="w-6 h-6 opacity-80 group-hover:opacity-100"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg" style="color: var(--brand-text);">Laser Fissurectomy</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-gold-50 text-gold-brand rounded-2xl group-hover:bg-gold-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="activity" class="w-6 h-6 opacity-80 group-hover:opacity-100"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg" style="color: var(--brand-text);">HAL-RAR</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-teal-50 text-teal-brand rounded-2xl group-hover:bg-teal-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="zap" class="w-6 h-6 opacity-80 group-hover:opacity-100"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg" style="color: var(--brand-text);">Laser Fistulotomy</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-orange-50 text-orange-brand rounded-2xl group-hover:bg-orange-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="zap" class="w-6 h-6 opacity-80 group-hover:opacity-100"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg" style="color: var(--brand-text);">Laser Hemorrhoidoplasty</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-gold-50 text-gold-brand rounded-2xl group-hover:bg-gold-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="zap" class="w-6 h-6 opacity-80 group-hover:opacity-100"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg" style="color: var(--brand-text);">Laser Hemorrhoidopexy</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-teal-50 text-teal-brand rounded-2xl group-hover:bg-teal-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="zap" class="w-6 h-6 opacity-80 group-hover:opacity-100"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg" style="color: var(--brand-text);">Laser Internal Sphincterotomy</span>
-                </div>
+                <div id="gallery-dots" class="flex gap-3"></div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-20 md:py-32 px-4 md:px-6 bg-[#fcfdfd]">
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-20 md:py-32 px-4 md:px-6 bg-[#fcfdfd] overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 md:mb-24 fade-in">
-                <span class="text-gold-brand font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] text-[11px] md:text-[13px] mb-6 block text-center">Real Experiences</span>
-                <h3 class="text-3xl md:text-[2.5rem] font-extrabold mb-6 md:mb-8" style="color: var(--brand-text);">What Our Patients Say</h3>
-                <div class="w-20 md:w-24 h-1 md:h-1.5 bg-gradient-to-r from-orange-400 to-orange-600 mx-auto rounded-full"></div>
+                <span class="text-gold-brand font-bold uppercase tracking-[0.3em] text-[11px] mb-6 block">Patient Feedback</span>
+                <h3 class="text-3xl md:text-[2.5rem] font-extrabold mb-8">What Our Patients Say</h3>
+                <div class="w-24 h-1.5 bg-gradient-to-r from-teal-400 to-teal-600 mx-auto rounded-full"></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-                <div class="testimonial-card fade-in">
-                    <div class="flex items-center gap-4 md:gap-5 mb-8 md:mb-10">
-                        <div class="w-12 h-12 md:w-16 md:h-16 bg-teal-50 text-teal-700 font-bold rounded-xl md:rounded-2xl flex items-center justify-center text-xl shadow-inner border border-teal-100/50">AM</div>
-                        <div><h5 class="font-bold text-lg md:text-xl tracking-tight" style="color: var(--brand-text);">Amarja Mirasdar</h5><p class="text-[10px] md:text-[11px] text-slate-400 font-black uppercase tracking-widest mt-1">Verified Patient</p></div>
-                    </div>
-                    <div class="flex text-gold-brand mb-6 md:mb-8 gap-1">
-                        <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i>
-                    </div>
-                    <p class="text-base md:text-xl leading-relaxed italic opacity-90" style="color: var(--brand-text);">"Best service by the experienced doctor, most recommended for piles pain relief with less complications."</p>
+
+            <div class="carousel-container">
+                <div id="testimonial-track" class="carousel-track">
+                    <!-- Testimonials will be rendered by JS -->
                 </div>
-                <div class="testimonial-card fade-in" style="transition-delay: 0.2s;">
-                    <div class="flex items-center gap-4 md:gap-5 mb-8 md:mb-10">
-                        <div class="w-12 h-12 md:w-16 md:h-16 bg-orange-50 text-orange-700 font-bold rounded-xl md:rounded-2xl flex items-center justify-center text-xl shadow-inner border border-orange-100/50">RG</div>
-                        <div><h5 class="font-bold text-lg md:text-xl tracking-tight" style="color: var(--brand-text);">Ravi Gaunalli</h5><p class="text-[10px] md:text-[11px] text-slate-400 font-black uppercase tracking-widest mt-1">Verified Patient</p></div>
-                    </div>
-                    <div class="flex text-gold-brand mb-6 md:mb-8 gap-1">
-                        <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i>
-                    </div>
-                    <p class="text-base md:text-xl leading-relaxed italic opacity-90" style="color: var(--brand-text);">"My relative had piles since 5 yrs with intolerable pain. After Sir's treatment, he became 100% fine in one week. Now he is fine and has no pain at all!"</p>
+            </div>
+
+            <div class="flex items-center justify-center mt-12 gap-8">
+                <div class="flex gap-4">
+                    <button onclick="scrollTestimonials('left')" class="p-5 rounded-full bg-white border border-slate-200 text-teal-brand hover:bg-teal-brand hover:text-white transition-all shadow-xl active:scale-90">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                    </button>
+                    <button onclick="scrollTestimonials('right')" class="p-5 rounded-full bg-white border border-slate-200 text-teal-brand hover:bg-teal-brand hover:text-white transition-all shadow-xl active:scale-90">
+                        <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                    </button>
                 </div>
-                <div class="testimonial-card fade-in" style="transition-delay: 0.4s;">
-                    <div class="flex items-center gap-4 md:gap-5 mb-8 md:mb-10">
-                        <div class="w-12 h-12 md:w-16 md:h-16 bg-gold-50 text-gold-700 font-bold rounded-xl md:rounded-2xl flex items-center justify-center text-xl shadow-inner border border-gold-100/50">AR</div>
-                        <div><h5 class="font-bold text-lg md:text-xl tracking-tight" style="color: var(--brand-text);">Anand RN</h5><p class="text-[10px] md:text-[11px] text-slate-400 font-black uppercase tracking-widest mt-1">Verified Patient</p></div>
-                    </div>
-                    <div class="flex text-gold-brand mb-6 md:mb-8 gap-1">
-                        <i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i><i data-lucide="star" class="w-4 h-4 md:w-5 md:h-5 fill-current"></i>
-                    </div>
-                    <p class="text-base md:text-xl leading-relaxed italic opacity-90" style="color: var(--brand-text);">"One of the best clinics for piles treatment. Doctor is very professional and treats very politely. Highly recommended!"</p>
-                </div>
+                <div id="testimonial-dots" class="flex gap-3"></div>
             </div>
         </div>
     </section>
 
-    <!-- Doctor Portrait Section -->
-    <section id="doctor-profile" class="py-16 md:py-32 px-4 md:px-6 bg-white border-t border-slate-50 text-center md:text-left">
+    <!-- Doctor Profile -->
+    <section id="doctor-profile" class="py-16 md:py-32 px-4 md:px-6 bg-white border-t border-slate-50">
         <div class="max-w-6xl mx-auto">
-            <div class="bg-slate-50/80 rounded-3xl md:rounded-[4.5rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.12)] overflow-hidden flex flex-col md:flex-row items-center border-2 border-white fade-in">
-                <div class="w-full md:w-1/2 h-[400px] md:h-[650px] bg-slate-200 relative group overflow-hidden">
-                    <img src="assets/doctor.jpeg" alt="Dr. Kapil Reddy" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-teal-900/50 to-transparent opacity-30 group-hover:opacity-60 transition-opacity duration-700"></div>
+            <div class="bg-slate-50/80 rounded-3xl md:rounded-[4.5rem] shadow-xl overflow-hidden flex flex-col md:flex-row items-center border-2 border-white fade-in">
+                <div class="w-full md:w-1/2 h-[450px] md:h-[650px] overflow-hidden">
+                    <img src="assets/doctor.jpeg" alt="Dr. Kapil Reddy" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=800'">
                 </div>
-                <div class="w-full md:w-1/2 p-8 md:p-12 lg:p-24 bg-white/40 backdrop-blur-md">
-                    <span class="text-teal-brand font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-[12px] mb-4 md:mb-8 block">Lead Proctologist</span>
-                    <h3 class="text-3xl md:text-6xl font-extrabold mb-4 tracking-tight" style="color: var(--brand-text);">Dr. Kapil Reddy</h3>
-                    <p class="text-gold-brand font-bold text-base md:text-xl mb-8 md:mb-10 tracking-wide uppercase opacity-90">B.A.M.S (RGUHS), Bangalore</p>
-                    <div class="space-y-4 md:space-y-8 mb-10 md:mb-16">
-                        <div class="flex items-center gap-4 md:gap-5 font-bold justify-center md:justify-start">
-                            <div class="p-2 md:p-3 bg-teal-50 text-teal-brand rounded-xl md:rounded-2xl shadow-sm border border-teal-100 transition-all duration-300 group-hover:bg-teal-brand group-hover:text-white"><i data-lucide="check-circle" class="w-5 h-5 md:w-7 md:h-7"></i></div>
-                            <span class="text-sm md:text-lg" style="color: var(--brand-text);">Ayurvedic Proctologist (Reg No: 29992)</span>
+                <div class="w-full md:w-1/2 p-10 md:p-20">
+                    <span class="text-teal-brand font-black uppercase tracking-[0.3em] text-[10px] mb-6 block">Lead Proctologist</span>
+                    <h3 class="text-4xl md:text-6xl font-extrabold mb-4">Dr. Kapil Reddy</h3>
+                    <p class="text-gold-brand font-bold text-lg mb-10 tracking-wide uppercase opacity-90">B.A.M.S (RGUHS), Bangalore</p>
+                    <div class="space-y-6 mb-12">
+                        <div class="flex items-center gap-4 font-bold">
+                            <i data-lucide="check-circle" class="text-teal-brand w-6 h-6"></i>
+                            <span class="text-lg">Ayurvedic Proctologist (Reg No: 29992)</span>
                         </div>
-                        <div class="flex items-center gap-4 md:gap-5 font-bold justify-center md:justify-start">
-                            <div class="p-2 md:p-3 bg-orange-50 text-orange-brand rounded-xl md:rounded-2xl shadow-sm border border-orange-100 transition-all duration-300 group-hover:bg-orange-brand group-hover:text-white"><i data-lucide="award" class="w-5 h-5 md:w-7 md:h-7"></i></div>
-                            <span class="text-sm md:text-lg" style="color: var(--brand-text);">Specialist in Kshara Sutra & Laser</span>
+                        <div class="flex items-center gap-4 font-bold">
+                            <i data-lucide="award" class="text-orange-brand w-6 h-6"></i>
+                            <span class="text-lg">Specialist in Kshara Sutra & Laser</span>
                         </div>
                     </div>
-                    <p class="text-lg md:text-2xl italic mb-10 md:mb-16 leading-relaxed font-medium opacity-80 max-w-lg mx-auto md:mx-0" style="color: var(--brand-text);">"Committed to providing painless, permanent relief for anorectal conditions using the synergy of Ayurveda and Laser."</p>
-                    <a href="tel:8123198711" class="btn-cta text-white px-10 md:px-14 py-4 md:py-6 rounded-2xl md:rounded-[2rem] font-black text-base md:text-xl inline-flex items-center gap-4 transition-all duration-300">
-                        <i data-lucide="phone-call" class="w-5 h-5 md:w-7 md:h-7"></i> Get Consultation
+                    <a href="tel:8123198711" class="btn-cta text-white px-10 py-5 rounded-2xl font-black inline-flex items-center gap-4 transition-all">
+                        <i data-lucide="phone-call" class="w-6 h-6"></i> Get Consultation
                     </a>
                 </div>
             </div>
@@ -560,66 +533,53 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-white pt-20 md:pt-32 pb-12 md:pb-16 px-6">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-20 border-b border-white/10 pb-16 md:pb-24">
-            <div class="lg:col-span-2 text-center md:text-left">
-                <img src="assets/logo.png" alt="Clinic Logo" class="h-24 md:h-32 mb-8 md:mb-12 grayscale invert opacity-90 object-contain hover:opacity-100 transition-opacity mx-auto md:mx-0">
-                <p class="text-slate-400 text-base md:text-lg leading-relaxed max-w-sm italic font-medium opacity-80 mx-auto md:mx-0">Near Jadhav Hospital, New Sonar Lane, Khandre Galli, Bhalki – 585328, Dist. Bidar (KS)</p>
+    <footer class="bg-slate-900 text-white pt-20 pb-12 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-white/10 pb-16">
+            <div class="lg:col-span-2">
+                <div class="text-2xl font-black mb-8">DR. REDDY'S <span class="text-teal-brand">CLINIC</span></div>
+                <p class="text-slate-400 leading-relaxed max-w-sm italic opacity-80">Near Jadhav Hospital, New Sonar Lane, Khandre Galli, Bhalki – 585328, Dist. Bidar (KS)</p>
             </div>
-            <div class="text-center md:text-left">
-                <h6 class="font-black text-xs uppercase tracking-[0.3em] md:tracking-[0.4em] text-gold-brand mb-8 md:mb-12">Direct Contact</h6>
-                <a href="tel:8123198711" class="text-2xl md:text-4xl font-black text-white hover:text-teal-brand transition-all duration-300 block transform hover:translate-x-2">8123198711</a>
-                <p class="text-[10px] md:text-xs text-slate-500 mt-4 md:mt-6 uppercase tracking-[0.2em] md:tracking-[0.3em] font-black">Bhalki, Dist. Bidar</p>
+            <div>
+                <h6 class="font-black text-xs uppercase tracking-[0.3em] text-gold-brand mb-8">Contact</h6>
+                <a href="tel:8123198711" class="text-3xl font-black hover:text-teal-brand transition-all">8123198711</a>
             </div>
-            <div class="bg-white/5 p-8 md:p-12 rounded-[2rem] md:rounded-[3.5rem] border border-white/10 shadow-3xl backdrop-blur-sm">
-                <h6 class="font-black text-xs uppercase tracking-[0.3em] md:tracking-[0.4em] text-slate-400 mb-8 md:mb-10 text-center">Clinic Hours</h6>
-                <div class="flex justify-between text-sm md:text-base font-bold border-b border-white/10 pb-4 md:pb-5"><span>Mon - Sat</span><span class="text-teal-400">10AM - 7PM</span></div>
-                <div class="flex justify-between text-sm md:text-base font-bold pt-4 md:pt-5"><span>Sunday</span><span class="text-orange-brand uppercase">Appt Only</span></div>
+            <div class="bg-white/5 p-8 rounded-3xl border border-white/10">
+                <h6 class="font-black text-xs text-center uppercase tracking-[0.3em] mb-6 text-slate-400">Clinic Hours</h6>
+                <div class="flex justify-between font-bold border-b border-white/10 pb-3 mb-3 text-sm"><span>Mon - Sat</span><span class="text-teal-400">10AM - 7PM</span></div>
+                <div class="flex justify-between font-bold text-sm"><span>Sunday</span><span class="text-orange-brand">Appt Only</span></div>
             </div>
         </div>
-        <div class="mt-12 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8 text-[9px] md:text-[11px] text-slate-500 font-black uppercase tracking-[0.4em] md:tracking-[0.5em]">
-            <p>© 2026 Dr. Reddy’s Clinic.</p>
-            <div class="flex gap-4">
-                <span class="w-1 h-1 bg-slate-700 rounded-full my-auto hidden md:block"></span>
-                <p>Quality Care Made Easy</p>
-            </div>
+        <div class="mt-12 text-center text-[10px] text-slate-500 font-black uppercase tracking-[0.4em]">
+            <p>© 2026 Dr. Reddy’s Clinic • Quality Care Made Easy</p>
         </div>
     </footer>
 
-    <!-- Hanging Floating Icons -->
-    <div class="fixed bottom-8 md:bottom-12 right-6 md:right-10 z-[150] flex flex-col gap-5 md:gap-8">
-        <a href="https://wa.me/918123198711?text=Hello%20Dr.%20Reddy's%20Clinic,%20I%20would%20like%20to%20inquire%20about%20a%20consultation%20for%20anorectal%20treatment.%20Please%20guide%20me." target="_blank" class="w-14 h-14 md:w-18 md:h-18 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_15px_35px_rgba(37,211,102,0.4)] md:shadow-[0_20px_40px_rgba(37,211,102,0.5)] hover:scale-115 transition-transform pulse-whatsapp duration-300 active:scale-95">
-            <i data-lucide="message-circle" class="w-8 h-8 md:w-10 md:h-10"></i>
+    <!-- Floating Buttons -->
+    <div class="fixed bottom-8 right-6 z-[150] flex flex-col gap-6">
+        <a href="https://wa.me/918123198711" target="_blank" class="w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl pulse-whatsapp transition-transform hover:scale-110">
+            <i data-lucide="message-circle" class="w-8 h-8"></i>
         </a>
-        <a href="tel:8123198711" class="w-14 h-14 md:w-18 md:h-18 bg-teal-brand text-white rounded-full flex items-center justify-center shadow-[0_15px_35px_rgba(29,181,166,0.4)] md:shadow-[0_20px_40px_rgba(29,181,166,0.5)] hover:scale-115 transition-transform duration-300 active:scale-95">
-            <i data-lucide="phone-call" class="w-8 h-8 md:w-10 md:h-10"></i>
+        <a href="tel:8123198711" class="w-14 h-14 bg-teal-brand text-white rounded-full flex items-center justify-center shadow-2xl transition-transform hover:scale-110">
+            <i data-lucide="phone-call" class="w-8 h-8"></i>
         </a>
     </div>
 
     <script>
-        lucide.createIcons();
+        // Initializing icons with a heavier weight and enforced white color on interaction
+        function initLucide() {
+            lucide.createIcons({
+                strokeWidth: 2.5
+            });
+        }
 
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden-menu');
+            document.getElementById('mobile-menu').classList.toggle('hidden-menu');
         }
 
         const slidesData = [
-            {
-                title: "Advanced Cure for PILES",
-                desc: "Ayurvedic formulations & signature Ksharakarma treatment for permanent relief.",
-                image: "assets/slider-1.png"
-            },
-            {
-                title: "IFTak Technique for FISTULA",
-                desc: "Complementing Kshara Sutra for high success rates without sphincter damage.",
-                image: "assets/slider-2.png"
-            },
-            {
-                title: "Laser-Assisted SINUS Care",
-                desc: "Kshara Karma with modern laser assistance for pilonidal sinus treatment.",
-                image: "assets/slider-3.png"
-            }
+            { title: "Advanced Cure for PILES", desc: "Ayurvedic formulations & signature Ksharakarma treatment for permanent relief.", image: "assets/slider-1.png" },
+            { title: "IFTak Technique for FISTULA", desc: "Complementing Kshara Sutra for high success rates without sphincter damage.", image: "assets/slider-2.png" },
+            { title: "Laser-Assisted SINUS Care", desc: "Kshara Karma with modern laser assistance for pilonidal sinus treatment.", image: "assets/slider-3.png" }
         ];
 
         let currentSlide = 0;
@@ -629,36 +589,32 @@
         function initSlider() {
             const root = document.getElementById('slider-root');
             const dots = document.getElementById('slide-dots');
-            
+            if (!root || !dots) return;
+
             slidesData.forEach((slide, idx) => {
                 const slideDiv = document.createElement('div');
                 slideDiv.className = `slide ${idx === 0 ? 'active' : ''}`;
                 slideDiv.id = `slide-${idx}`;
                 slideDiv.innerHTML = `
                     <div class="absolute inset-0 z-0 bg-slate-800 overflow-hidden">
-                        <img src="${slide.image}" class="w-full h-full object-cover transition-transform duration-[7s] ease-out slide-img" style="transform: ${idx === 0 ? 'scale(1.1)' : 'scale(1)'}">
+                        <img src="${slide.image}" class="w-full h-full object-cover opacity-60 transition-transform duration-[7s] slide-img" onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200'">
                     </div>
                     <div class="slide-overlay absolute inset-0 z-10"></div>
                     <div class="slide-content relative z-20 px-6 md:px-24 max-w-5xl text-white">
-                        <span class="inline-block px-4 md:px-5 py-1.5 md:py-2 rounded-full bg-white/10 backdrop-blur-xl text-[10px] md:text-[12px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 md:mb-10 border border-white/20 shadow-xl mx-auto md:mx-0">Day Care Procedure</span>
-                        <h2 class="text-3xl md:text-[5.5rem] font-black mb-6 md:mb-10 leading-[1.2] md:leading-[1.1] tracking-tight">${slide.title}</h2>
-                        <p class="text-base md:text-3xl text-white/90 mb-10 md:mb-16 leading-relaxed italic font-medium max-w-3xl opacity-90 mx-auto md:mx-0">${slide.desc}</p>
-                        <div class="mt-4 md:mt-8 flex flex-col md:flex-row gap-4 md:gap-8 items-center justify-center md:justify-start">
-                            <a href="tel:8123198711" class="btn-cta text-white px-8 md:px-12 py-4 md:py-6 rounded-xl md:rounded-[2rem] font-black text-sm md:text-xl inline-flex items-center gap-3 md:gap-4 shadow-2xl w-full md:w-auto justify-center">
-                                <i data-lucide="phone-call" class="w-5 h-5 md:w-7 md:h-7"></i> Call Clinic Now
-                            </a>
-                        </div>
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-xl text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-white/20">Day Care Procedure</span>
+                        <h2 class="text-3xl md:text-[5.5rem] font-black mb-6 leading-tight">${slide.title}</h2>
+                        <p class="text-base md:text-2xl opacity-90 max-w-2xl italic mb-10">${slide.desc}</p>
+                        <a href="tel:8123198711" class="btn-cta text-white px-8 py-4 rounded-xl font-black inline-flex items-center gap-3">
+                            <i data-lucide="phone-call" class="w-5 h-5"></i> Call Clinic Now
+                        </a>
                     </div>
                 `;
                 root.appendChild(slideDiv);
-
                 const dot = document.createElement('button');
-                dot.className = `w-4 h-4 md:w-5 md:h-5 rounded-full transition-all duration-700 shadow-sm ${idx === 0 ? 'bg-white w-10 md:w-14' : 'bg-white/20 hover:bg-white/40'}`;
+                dot.className = `w-4 h-4 rounded-full transition-all duration-700 ${idx === 0 ? 'bg-white w-12' : 'bg-white/20'}`;
                 dot.onclick = () => goToSlide(idx);
                 dots.appendChild(dot);
             });
-            
-            lucide.createIcons();
             startProgress();
         }
 
@@ -669,37 +625,24 @@
                 if (!start) start = timestamp;
                 const progress = ((timestamp - start) / sliderInterval) * 100;
                 bar.style.width = `${Math.min(progress, 100)}%`;
-                if (progress < 100) {
-                    progressInterval = requestAnimationFrame(step);
-                } else {
-                    nextSlide();
-                }
+                if (progress < 100) progressInterval = requestAnimationFrame(step);
+                else nextSlide();
             }
             progressInterval = requestAnimationFrame(step);
         }
 
         function goToSlide(idx) {
             cancelAnimationFrame(progressInterval);
-            const activeSlide = document.querySelector('.slide.active');
-            if (activeSlide) {
-                activeSlide.classList.remove('active');
-                activeSlide.querySelector('.slide-img').style.transform = 'scale(1)';
-            }
-            
-            const nextSlideEl = document.getElementById(`slide-${idx}`);
-            if (nextSlideEl) {
-                nextSlideEl.classList.add('active');
-                nextSlideEl.querySelector('.slide-img').style.transform = 'scale(1.1)';
-            }
+            const active = document.querySelector('.slide.active');
+            if (active) active.classList.remove('active');
+            const target = document.getElementById(`slide-${idx}`);
+            if (target) target.classList.add('active');
             
             const dots = document.getElementById('slide-dots').children;
             Array.from(dots).forEach((dot, i) => {
-                dot.classList.remove('bg-white', 'w-10', 'md:w-14');
+                dot.classList.remove('bg-white', 'w-12');
                 dot.classList.add('bg-white/20');
-                if (i === idx) {
-                    dot.classList.add('bg-white', 'w-10', 'md:w-14');
-                    dot.classList.remove('bg-white/20');
-                }
+                if (i === idx) { dot.classList.add('bg-white', 'w-12'); dot.classList.remove('bg-white/20'); }
             });
             currentSlide = idx;
             startProgress();
@@ -708,14 +651,162 @@
         function nextSlide() { goToSlide((currentSlide + 1) % slidesData.length); }
         function prevSlide() { goToSlide((currentSlide - 1 + slidesData.length) % slidesData.length); }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
+        // GALLERY IMPLEMENTATION - FIXED LOGIC
+        const galleryImages = [
+            { id: 1, src: "assets/p1.jpeg", caption: "Successful Piles Treatment" },
+            { id: 2, src: "assets/p2.jpeg", caption: "Complex Fistula Case Recovery" },
+            { id: 3, src: "assets/p3.jpeg", caption: "Laser assisted results" },
+            { id: 4, src: "assets/p4.jpeg", caption: "Patient Post-Op Result" },
+            { id: 5, src: "assets/p5.jpeg", caption: "Clinical Documentation" },
+            { id: 6, src: "assets/p6.jpeg", caption: "Treatment Progress Case" },
+            { id: 7, src: "assets/p7.jpeg", caption: "Advanced Pilonidal Care" }
+        ];
+
+        let currentGalleryIndex = 0;
+
+        function renderGallery() {
+            const track = document.getElementById('gallery-track');
+            const dotsContainer = document.getElementById('gallery-dots');
+            if (!track || !dotsContainer) return;
+            track.innerHTML = '';
+            dotsContainer.innerHTML = '';
+            
+            galleryImages.forEach((img, i) => {
+                const card = document.createElement('div');
+                card.className = 'gallery-card relative group';
+                card.innerHTML = `
+                    <img src="${img.src}" alt="${img.caption}" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=400'">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-10">
+                        <p class="text-white font-bold text-center text-sm">${img.caption}</p>
+                    </div>
+                `;
+                track.appendChild(card);
+                const dot = document.createElement('button');
+                dot.className = `w-2 h-2 rounded-full transition-all duration-500 ${i === 0 ? 'bg-orange-brand w-6' : 'bg-slate-200'}`;
+                dot.onclick = () => scrollToGallery(i);
+                dotsContainer.appendChild(dot);
             });
+        }
+
+        function scrollToGallery(index) {
+            const track = document.getElementById('gallery-track');
+            const dots = document.getElementById('gallery-dots').children;
+            if (!track || !track.children.length) return;
+            
+            const card = track.children[0];
+            const cardWidth = card.getBoundingClientRect().width;
+            const style = window.getComputedStyle(card);
+            const marginRight = parseFloat(style.marginRight);
+            
+            currentGalleryIndex = index;
+            const offset = index * (cardWidth + marginRight);
+            track.style.transform = `translateX(-${offset}px)`;
+            
+            Array.from(dots).forEach((dot, i) => {
+                dot.classList.remove('bg-orange-brand', 'w-6');
+                dot.classList.add('bg-slate-200');
+                if (i === index) { dot.classList.add('bg-orange-brand', 'w-6'); dot.classList.remove('bg-slate-200'); }
+            });
+        }
+
+        function scrollGallery(direction) {
+            const visible = window.innerWidth >= 768 ? 2 : 1;
+            const max = galleryImages.length - visible;
+            if (direction === 'right') currentGalleryIndex = (currentGalleryIndex >= max) ? 0 : currentGalleryIndex + 1;
+            else currentGalleryIndex = (currentGalleryIndex <= 0) ? max : currentGalleryIndex - 1;
+            scrollToGallery(currentGalleryIndex);
+        }
+
+        // Testimonials Implementation
+        const testimonialsData = [
+            { name: "Lingesh Biradar", initials: "LB", color: "bg-teal-50 text-teal-700", text: "One of the best kinds of hospitals specialised in piles treatment nearby, Best hands on experience Doctor available.", meta: "Verified Review • 11 months ago" },
+            { name: "Mirgaji Sudarshan", initials: "MS", color: "bg-orange-50 text-orange-700", text: "Nature and behaviour of doctor is very good. Correct explanation regarding the disease and suitable treatment will be given.", meta: "Verified Review • 11 months ago" },
+            { name: "Viswadeep Morambe", initials: "VM", color: "bg-blue-50 text-blue-700", text: "Well equiped hospital with cost effective procedures for piles operation. Highly recommended.", meta: "Eagle Watch • 11 months ago" },
+            { name: "Sudhakar Tugave", initials: "ST", color: "bg-rose-50 text-rose-700", text: "Calm, patient and responsive listens and responds professionally. A truly comforting experience.", meta: "4 reviews • 1 year ago" },
+            { name: "Amarja Mirasdar", initials: "AM", color: "bg-teal-50 text-teal-700", text: "Best service by the experienced doctor, most recommended for piles pain relief.", meta: "Verified Patient" }
+        ];
+
+        let currentTestimonial = 0;
+
+        function renderTestimonials() {
+            const track = document.getElementById('testimonial-track');
+            const dotsContainer = document.getElementById('testimonial-dots');
+            if (!track || !dotsContainer) return;
+            testimonialsData.forEach((t, i) => {
+                const card = document.createElement('div');
+                card.className = 'testimonial-card';
+                card.innerHTML = `
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-14 h-14 ${t.color} font-bold rounded-2xl flex items-center justify-center text-xl shadow-inner border border-current/10">${t.initials}</div>
+                        <div>
+                            <h5 class="font-bold text-lg">${t.name}</h5>
+                            <p class="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-1">${t.meta}</p>
+                        </div>
+                    </div>
+                    <div class="flex text-gold-brand mb-6 gap-1">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-base leading-relaxed italic opacity-90">"${t.text}"</p>
+                `;
+                track.appendChild(card);
+                const dot = document.createElement('button');
+                dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-500 ${i === 0 ? 'bg-teal-brand w-8' : 'bg-slate-200'}`;
+                dot.onclick = () => scrollToTestimonial(i);
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function scrollToTestimonial(index) {
+            const track = document.getElementById('testimonial-track');
+            const dots = document.getElementById('testimonial-dots').children;
+            if (!track || !track.children.length) return;
+            
+            const card = track.children[0];
+            const cardWidth = card.getBoundingClientRect().width;
+            const style = window.getComputedStyle(card);
+            const marginRight = parseFloat(style.marginRight);
+            
+            currentTestimonial = index;
+            const offset = index * (cardWidth + marginRight);
+            track.style.transform = `translateX(-${offset}px)`;
+            
+            Array.from(dots).forEach((dot, i) => {
+                dot.classList.remove('bg-teal-brand', 'w-8');
+                dot.classList.add('bg-slate-200');
+                if (i === index) { dot.classList.add('bg-teal-brand', 'w-8'); dot.classList.remove('bg-slate-200'); }
+            });
+        }
+
+        function scrollTestimonials(direction) {
+            const visible = window.innerWidth >= 1280 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
+            const max = testimonialsData.length - visible;
+            if (direction === 'right') currentTestimonial = (currentTestimonial >= max) ? 0 : currentTestimonial + 1;
+            else currentTestimonial = (currentTestimonial <= 0) ? max : currentTestimonial - 1;
+            scrollToTestimonial(currentTestimonial);
+        }
+
+        setInterval(() => scrollTestimonials('right'), 6000);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-        window.onload = initSlider;
+        window.onload = function() {
+            initSlider();
+            renderGallery();
+            renderTestimonials();
+            setTimeout(() => { 
+                scrollToGallery(0); 
+                scrollToTestimonial(0); 
+                initLucide(); 
+            }, 300);
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        };
+
+        window.onresize = () => { 
+            scrollToTestimonial(currentTestimonial); 
+            scrollToGallery(currentGalleryIndex); 
+        };
     </script>
 </body>
 </html>
