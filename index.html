@@ -7,6 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'teal-brand': '#1db5a6',
+                        'orange-brand': '#f06d10',
+                        'gold-brand': '#e7a035',
+                        'brand-text': '#2c4f71',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         :root {
             --brand-teal: #1db5a6;
@@ -279,17 +293,18 @@
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08);
         }
 
-        /* Fix for Lucide icons hiding on hover/active - FORCED INHERITANCE */
+        /* --- VITAL ICON VISIBILITY FIX --- */
+        /* Forces the Lucide SVGs to turn white on hover and mobile active states */
         .highlight-card:hover svg, 
         .highlight-card:active svg,
         .highlight-card.active svg {
             stroke: #ffffff !important;
-            opacity: 1 !important;
+            color: #ffffff !important;
         }
 
         .highlight-card svg {
             stroke: currentColor;
-            transition: stroke 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+            transition: stroke 0.3s ease, transform 0.3s ease;
         }
     </style>
 </head>
@@ -298,9 +313,9 @@
     <!-- Navigation -->
     <nav class="glass-nav sticky top-0 z-[100] border-b border-white/40 py-2 md:py-4 px-4 md:px-8 flex justify-between items-center transition-all duration-300">
         <div class="flex items-center gap-3 md:gap-6">
-            <div class="h-16 md:h-32 w-16 md:w-32 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:scale-105">
+            <a href="#" class="h-16 md:h-32 w-16 md:w-32 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:scale-105">
                 <img src="assets/logo.png" alt="Clinic Logo" class="h-full w-full object-contain">
-            </div>
+            </a>
             <div class="flex flex-col">
                 <img src="assets/header.png" alt="Dr. Reddy's Branding" class="h-10 md:h-24 object-contain drop-shadow-sm">
             </div>
@@ -311,6 +326,7 @@
             <a href="#procedures" class="nav-link transition">Procedures</a>
             <a href="#gallery" class="nav-link transition">Gallery</a>
             <a href="#testimonials" class="nav-link transition">Reviews</a>
+            <a href="#doctor-profile" class="nav-link transition">About Doctor</a>
         </div>
 
         <div class="flex items-center gap-2 md:gap-4">
@@ -328,12 +344,21 @@
     <!-- Mobile Side Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 z-[200] bg-white hidden-menu lg:hidden">
         <div class="p-8 flex flex-col h-full bg-gradient-to-br from-white to-teal-50">
+            <!-- Mobile Menu Header with Fixed Logo Visibility -->
             <div class="flex justify-between items-center mb-16">
-                <img src="assets/logo.jpeg" alt="Logo" class="h-12">
+                <div class="flex items-center gap-3">
+                    <div class="h-12 w-12 flex items-center justify-center overflow-hidden">
+                        <!-- Use primary logo.png with jpeg fallback for robustness -->
+                        <img src="assets/logo.png" alt="Logo" class="h-full w-full object-contain" onerror="this.src='assets/logo.jpeg'">
+                    </div>
+                    <!-- Brand Header Image -->
+                    <img src="assets/header.png" alt="Dr. Reddy's" class="h-8 object-contain" onerror="this.style.display='none'">
+                </div>
                 <button onclick="toggleMobileMenu()" class="p-3 text-slate-800 active:scale-90 transition-transform bg-slate-100 rounded-2xl">
                     <i data-lucide="x" class="w-10 h-10"></i>
                 </button>
             </div>
+            
             <div class="flex flex-col gap-8 text-3xl font-black" style="color: var(--brand-text);">
                 <a href="#what-we-do" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">What We Do</a>
                 <a href="#procedures" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">Procedures</a>
@@ -378,30 +403,30 @@
             <h3 class="text-3xl md:text-6xl font-extrabold mb-6 md:mb-10 leading-tight" style="color: var(--brand-text);">Day Care Ano-rectal Clinic</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10">
                 <!-- Vessel Sealer -->
-                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
+                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:bg-teal-50 hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
                     <div class="bg-teal-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-teal-brand group-active:bg-teal-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="activity" class="text-teal-brand group-hover:text-white group-active:text-white transition-colors duration-300 w-6 h-6 md:w-10 md:h-10"></i>
+                        <i data-lucide="activity" class="text-teal-brand w-6 h-6 md:w-10 md:h-10"></i>
                     </div>
                     <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Vessel Sealer</h5>
                 </div>
                 <!-- Radio Frequency -->
-                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
+                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:bg-orange-50 hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
                     <div class="bg-orange-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-orange-brand group-active:bg-orange-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="zap" class="text-orange-brand group-hover:text-white group-active:text-white transition-colors duration-300 w-6 h-6 md:w-10 md:h-10"></i>
+                        <i data-lucide="zap" class="text-orange-brand w-6 h-6 md:w-10 md:h-10"></i>
                     </div>
                     <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Radio Frequency</h5>
                 </div>
                 <!-- Advanced Laser -->
-                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
+                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:bg-amber-50 hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
                     <div class="bg-gold-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-gold-brand group-active:bg-gold-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="microscope" class="text-gold-brand group-hover:text-white group-active:text-white transition-colors duration-300 w-6 h-6 md:w-10 md:h-10"></i>
+                        <i data-lucide="microscope" class="text-gold-brand w-6 h-6 md:w-10 md:h-10"></i>
                     </div>
                     <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Advanced Laser</h5>
                 </div>
                 <!-- Dietary Guidance -->
-                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
+                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:bg-teal-50 hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
                     <div class="bg-teal-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-teal-brand group-active:bg-teal-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="utensils" class="text-teal-brand group-hover:text-white group-active:text-white transition-colors duration-300 w-6 h-6 md:w-10 md:h-10"></i>
+                        <i data-lucide="utensils" class="text-teal-brand w-6 h-6 md:w-10 md:h-10"></i>
                     </div>
                     <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Dietary Guidance</h5>
                 </div>
@@ -409,7 +434,7 @@
         </div>
     </section>
 
-    <!-- Specialized Care -->
+    <!-- Specialized Care (What We Do) -->
     <section id="what-we-do" class="py-16 md:py-32 px-4 md:px-6 bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 md:mb-24 fade-in">
@@ -418,6 +443,7 @@
                 <div class="w-20 md:w-24 h-1.5 bg-gradient-to-r from-teal-400 to-teal-600 mx-auto rounded-full"></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <!-- Piles -->
                 <div class="bg-slate-50/50 p-8 rounded-3xl border-2 border-transparent card-interaction group">
                     <div class="flex flex-col lg:flex-row gap-6 items-center">
                         <div class="w-20 h-20 bg-white text-teal-brand rounded-2xl flex-shrink-0 flex items-center justify-center shadow-md group-hover:bg-teal-brand group-hover:text-white transition-all">
@@ -429,6 +455,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Fistula -->
                 <div class="bg-slate-50/50 p-8 rounded-3xl border-2 border-transparent card-interaction group">
                     <div class="flex flex-col lg:flex-row gap-6 items-center">
                         <div class="w-20 h-20 bg-white text-orange-brand rounded-2xl flex-shrink-0 flex items-center justify-center shadow-md group-hover:bg-orange-brand group-hover:text-white transition-all">
@@ -439,6 +466,79 @@
                             <p class="text-sm opacity-90">Specialized IFTak technique with Kshara Sutra for high success and safety.</p>
                         </div>
                     </div>
+                </div>
+                <!-- Anal Fissure -->
+                <div class="bg-slate-50/50 p-8 rounded-3xl border-2 border-transparent card-interaction group">
+                    <div class="flex flex-col lg:flex-row gap-6 items-center">
+                        <div class="w-20 h-20 bg-white text-gold-brand rounded-2xl flex-shrink-0 flex items-center justify-center shadow-md group-hover:bg-gold-brand group-hover:text-white transition-all">
+                            <i data-lucide="activity" class="w-10 h-10"></i>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <h4 class="text-xl font-bold mb-2">ANAL FISSURE</h4>
+                            <p class="text-sm opacity-90">Matravasti paired with Ayurvedic relaxation techniques for pain-free healing.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pilonidal Sinus -->
+                <div class="bg-slate-50/50 p-8 rounded-3xl border-2 border-transparent card-interaction group">
+                    <div class="flex flex-col lg:flex-row gap-6 items-center">
+                        <div class="w-20 h-20 bg-white text-slate-900 rounded-2xl flex-shrink-0 flex items-center justify-center shadow-md group-hover:bg-slate-900 group-hover:text-white transition-all">
+                            <i data-lucide="target" class="w-10 h-10"></i>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <h4 class="text-xl font-bold mb-2">PILONIDAL SINUS</h4>
+                            <p class="text-sm opacity-90">Advanced technique of Kshara Karma with Laser assistance for permanent recovery.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Services/Procedures Section -->
+    <section id="procedures" class="py-16 md:py-32 px-4 md:px-6 bg-slate-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 md:mb-24 fade-in">
+                <span class="text-teal-brand font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] text-[11px] md:text-[13px] mb-6 block">Comprehensive Care</span>
+                <h3 class="text-3xl md:text-5xl font-extrabold mb-6 md:mb-8" style="color: var(--brand-text);">Other Procedures We Offer</h3>
+                <div class="w-20 md:w-24 h-1 md:h-1.5 bg-gradient-to-r from-gold-400 to-gold-600 mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
+                    <div class="p-3 bg-teal-50 text-teal-brand rounded-2xl group-hover:bg-teal-brand group-hover:text-white transition-all duration-300">
+                        <i data-lucide="shield-plus" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-bold text-base md:text-lg">Medical Management for Piles</span>
+                </div>
+                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
+                    <div class="p-3 bg-orange-50 text-orange-brand rounded-2xl group-hover:bg-orange-brand group-hover:text-white transition-all duration-300">
+                        <i data-lucide="git-merge" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-bold text-base md:text-lg">IFTAK With Kshara Sutra</span>
+                </div>
+                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
+                    <div class="p-3 bg-blue-50 text-blue-600 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                        <i data-lucide="video" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-bold text-base md:text-lg">Arshoscopy (Videography)</span>
+                </div>
+                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
+                    <div class="p-3 bg-teal-50 text-teal-brand rounded-2xl group-hover:bg-teal-brand group-hover:text-white transition-all duration-300">
+                        <i data-lucide="microscope" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-bold text-base md:text-lg">Mucopexy</span>
+                </div>
+                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
+                    <div class="p-3 bg-orange-50 text-orange-brand rounded-2xl group-hover:bg-orange-brand group-hover:text-white transition-all duration-300">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-bold text-base md:text-lg">Laser Fissurectomy</span>
+                </div>
+                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
+                    <div class="p-3 bg-gold-50 text-gold-brand rounded-2xl group-hover:bg-gold-brand group-hover:text-white transition-all duration-300">
+                        <i data-lucide="activity" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-bold text-base md:text-lg">HAL-RAR</span>
                 </div>
             </div>
         </div>
@@ -565,7 +665,6 @@
     </div>
 
     <script>
-        // Initializing icons with a heavier weight and enforced white color on interaction
         function initLucide() {
             lucide.createIcons({
                 strokeWidth: 2.5
@@ -651,7 +750,6 @@
         function nextSlide() { goToSlide((currentSlide + 1) % slidesData.length); }
         function prevSlide() { goToSlide((currentSlide - 1 + slidesData.length) % slidesData.length); }
 
-        // GALLERY IMPLEMENTATION - FIXED LOGIC
         const galleryImages = [
             { id: 1, src: "assets/p1.jpeg", caption: "Successful Piles Treatment" },
             { id: 2, src: "assets/p2.jpeg", caption: "Complex Fistula Case Recovery" },
@@ -717,7 +815,6 @@
             scrollToGallery(currentGalleryIndex);
         }
 
-        // Testimonials Implementation
         const testimonialsData = [
             { name: "Lingesh Biradar", initials: "LB", color: "bg-teal-50 text-teal-700", text: "One of the best kinds of hospitals specialised in piles treatment nearby, Best hands on experience Doctor available.", meta: "Verified Review • 11 months ago" },
             { name: "Mirgaji Sudarshan", initials: "MS", color: "bg-orange-50 text-orange-700", text: "Nature and behaviour of doctor is very good. Correct explanation regarding the disease and suitable treatment will be given.", meta: "Verified Review • 11 months ago" },
