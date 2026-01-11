@@ -1,909 +1,601 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Reddy’s Ayurvedic Anorectal Clinic & Laser Center | Bhalki</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <meta name="description"
+        content="Dr. Reddy's Ayurvedic Anorectal Clinic & Laser Center in Bhalki - Specialized treatment for Piles, Fistula, Fissure with advanced Ayurvedic and modern techniques.">
+    <meta name="keywords" content="piles treatment, fistula, fissure, ayurvedic, laser treatment, Bhalki, Dr. Reddy">
+    <meta name="author" content="Dr. Kapil Reddy">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Dr. Reddy's Ayurvedic Anorectal Clinic & Laser Center">
+    <meta property="og:description" content="Advanced Ayurvedic and Laser Treatment for Anorectal conditions in Bhalki">
+    <meta property="og:image" content="assets/clinic-hero.jpg">
+
+    <title>Dr. Reddy's Ayurvedic Anorectal Clinic & Laser Center | Bhalki</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'teal-brand': '#1db5a6',
-                        'orange-brand': '#f06d10',
-                        'gold-brand': '#e7a035',
-                        'brand-text': '#2c4f71',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        :root {
-            --brand-teal: #1db5a6;
-            --brand-orange: #f06d10;
-            --brand-gold: #e7a035;
-            --brand-text: #2c4f71;
-        }
 
-        body { 
-            font-family: 'Inter', sans-serif; 
-            overflow-x: hidden; 
-            color: var(--brand-text);
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        h1, h2, h3, h4 { 
-            font-family: 'Playfair Display', serif; 
-            color: var(--brand-text);
-        }
-        
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .bg-teal-brand { background-color: var(--brand-teal); }
-        .text-teal-brand { color: var(--brand-teal); }
-        .bg-orange-brand { background-color: var(--brand-orange); }
-        .text-orange-brand { color: var(--brand-orange); }
-        .bg-gold-brand { background-color: var(--brand-gold); }
-        .text-gold-brand { color: var(--brand-gold); }
-
-        .btn-cta {
-            background-color: var(--brand-orange);
-            color: white;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 14px 0 rgba(240, 109, 16, 0.39);
-        }
-
-        .btn-cta:hover {
-            background-color: #d65d0b;
-            transform: scale(1.03);
-            box-shadow: 0 10px 25px rgba(240, 109, 16, 0.45);
-        }
-
-        .btn-cta:active {
-            transform: scale(0.98);
-        }
-
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Nav Link Hover Effect */
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-            color: var(--brand-text);
-            opacity: 0.8;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--brand-teal);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .nav-link:hover {
-            color: var(--brand-teal);
-            opacity: 1;
-        }
-
-        /* Slider Animations */
-        .slide-container {
-            position: relative;
-            height: 550px;
-            overflow: hidden;
-            border-radius: 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        @media (min-width: 768px) {
-            .slide-container {
-                height: 650px;
-                border-radius: 4rem;
-            }
-        }
-
-        .slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 1.2s ease-in-out;
-            display: flex;
-            align-items: center;
-        }
-
-        .slide.active {
-            opacity: 1;
-            z-index: 10;
-        }
-
-        .slide-content h2 {
-            transform: translateY(40px);
-            opacity: 0;
-            transition: all 0.9s cubic-bezier(0.2, 1, 0.3, 1) 0.3s;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            color: white; 
-        }
-
-        .slide.active .slide-content h2 {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .slide-content p {
-            transform: translateY(20px);
-            opacity: 0;
-            transition: all 0.9s cubic-bezier(0.2, 1, 0.3, 1) 0.5s;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .slide.active .slide-content p {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .slide-overlay {
-            background: linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 40%, rgba(15, 23, 42, 0) 100%);
-        }
-
-        @media (max-width: 768px) {
-            .slide-overlay {
-                background: linear-gradient(0deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.5) 100%);
-            }
-            .slide-content {
-                text-align: center;
-                padding-top: 2rem;
-            }
-        }
-
-        .progress-bar {
-            height: 4px;
-            background: rgba(255, 255, 255, 0.15);
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 20;
-        }
-
-        .progress-inner {
-            height: 100%;
-            background: var(--brand-gold);
-            width: 0%;
-            box-shadow: 0 0 10px var(--brand-gold);
-        }
-
-        /* Carousel Track Systems */
-        .carousel-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            padding: 1.5rem 0;
-        }
-        
-        .carousel-track {
-            display: flex;
-            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
-            padding: 0 1rem;
-            width: max-content;
-            will-change: transform;
-        }
-
-        .testimonial-card, .gallery-card {
-            background: white;
-            border-radius: 2.5rem;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            flex-shrink: 0;
-        }
-
-        .testimonial-card {
-            padding: 2rem;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.03), 0 8px 10px -6px rgba(0,0,0,0.03);
-            border: 1px solid rgba(241, 245, 249, 0.8);
-            width: 300px;
-            margin-right: 1.5rem;
-        }
-
-        .gallery-card {
-            width: 280px;
-            height: 400px;
-            overflow: hidden;
-            border: 8px solid white;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            position: relative;
-            margin-right: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .testimonial-card {
-                padding: 3rem;
-                width: 450px;
-            }
-            .gallery-card {
-                width: 380px;
-                height: 500px;
-            }
-        }
-        
-        .testimonial-card:hover, .gallery-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 40px 80px -15px rgba(0,0,0,0.1);
-        }
-
-        .gallery-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s ease;
-        }
-
-        .gallery-card:hover img {
-            transform: scale(1.1);
-        }
-
-        #mobile-menu {
-            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-        }
-        #mobile-menu.hidden-menu {
-            transform: translateX(100%);
-        }
-
-        @keyframes pulse-whatsapp {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-            70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-        .pulse-whatsapp {
-            animation: pulse-whatsapp 2s infinite;
-        }
-
-        .card-interaction {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        }
-        .card-interaction:hover {
-            transform: translateY(-10px);
-            border-color: var(--brand-teal);
-            box-shadow: 0 25px 50px -15px rgba(29, 181, 166, 0.12);
-        }
-        
-        .premium-shadow {
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08);
-        }
-
-        /* --- VITAL ICON VISIBILITY FIX --- */
-        /* Forces the Lucide SVGs to turn white on hover and mobile active states */
-        .highlight-card:hover svg, 
-        .highlight-card:active svg,
-        .highlight-card.active svg {
-            stroke: #ffffff !important;
-            color: #ffffff !important;
-        }
-
-        .highlight-card svg {
-            stroke: currentColor;
-            transition: stroke 0.3s ease, transform 0.3s ease;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-[#fcfdfd] scroll-smooth">
 
-    <!-- Navigation -->
-    <nav class="glass-nav sticky top-0 z-[100] border-b border-white/40 py-2 md:py-4 px-4 md:px-8 flex justify-between items-center transition-all duration-300">
-        <div class="flex items-center gap-3 md:gap-6">
-            <a href="#" class="h-16 md:h-32 w-16 md:w-32 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:scale-105">
-                <img src="assets/logo.png" alt="Clinic Logo" class="h-full w-full object-contain">
-            </a>
-            <div class="flex flex-col">
-                <img src="assets/header.png" alt="Dr. Reddy's Branding" class="h-10 md:h-24 object-contain drop-shadow-sm">
-            </div>
-        </div>
-        
-        <div class="hidden lg:flex gap-12 text-sm font-bold uppercase tracking-widest">
-            <a href="#what-we-do" class="nav-link transition">What We Do</a>
-            <a href="#procedures" class="nav-link transition">Procedures</a>
-            <a href="#gallery" class="nav-link transition">Gallery</a>
-            <a href="#testimonials" class="nav-link transition">Reviews</a>
-            <a href="#doctor-profile" class="nav-link transition">About Doctor</a>
-        </div>
-
-        <div class="flex items-center gap-2 md:gap-4">
-            <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-teal-brand focus:outline-none transition-transform active:scale-90 bg-teal-50/50 rounded-xl">
-                <i data-lucide="menu" id="menu-icon" class="w-8 h-8"></i>
-            </button>
-            <div class="hidden lg:block">
-                <a href="tel:8123198711" class="bg-teal-brand text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-lg flex items-center gap-2 hover:bg-emerald-600 hover:shadow-emerald-200 transition-all active:scale-95">
-                    <i data-lucide="phone" class="w-4 h-4"></i> 8123198711
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Mobile Side Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 z-[200] bg-white hidden-menu lg:hidden">
-        <div class="p-8 flex flex-col h-full bg-gradient-to-br from-white to-teal-50">
-            <!-- Mobile Menu Header with Fixed Logo Visibility -->
-            <div class="flex justify-between items-center mb-16">
-                <div class="flex items-center gap-3">
-                    <div class="h-12 w-12 flex items-center justify-center overflow-hidden">
-                        <!-- Use primary logo.png with jpeg fallback for robustness -->
-                        <img src="assets/logo.png" alt="Logo" class="h-full w-full object-contain" onerror="this.src='assets/logo.jpeg'">
-                    </div>
-                    <!-- Brand Header Image -->
-                    <img src="assets/header.png" alt="Dr. Reddy's" class="h-8 object-contain" onerror="this.style.display='none'">
-                </div>
-                <button onclick="toggleMobileMenu()" class="p-3 text-slate-800 active:scale-90 transition-transform bg-slate-100 rounded-2xl">
-                    <i data-lucide="x" class="w-10 h-10"></i>
-                </button>
-            </div>
-            
-            <div class="flex flex-col gap-8 text-3xl font-black" style="color: var(--brand-text);">
-                <a href="#what-we-do" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">What We Do</a>
-                <a href="#procedures" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">Procedures</a>
-                <a href="#gallery" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">Gallery</a>
-                <a href="#testimonials" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">Reviews</a>
-                <a href="#doctor-profile" onclick="toggleMobileMenu()" class="hover:text-teal-brand transition-colors">About Doctor</a>
-            </div>
-            <div class="mt-auto pb-12">
-                <div class="h-px bg-slate-200 w-full mb-8"></div>
-                <p class="text-center text-slate-400 font-bold uppercase tracking-widest text-sm">Quality Care Made Easy</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="bg-white py-6 md:py-12 px-4 md:px-12 lg:px-24">
-        <div class="max-w-7xl mx-auto">
-            <div class="slide-container group border-[4px] md:border-[6px] border-slate-50/50">
-                <div id="slider-root"></div>
-                <div class="progress-bar">
-                    <div id="slide-progress" class="progress-inner"></div>
-                </div>
-                <div class="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 md:left-12 md:translate-x-0 z-20 flex gap-4 md:gap-5">
-                    <button onclick="prevSlide()" class="p-3 md:p-5 rounded-full bg-white/20 text-white backdrop-blur-xl border border-white/20 hover:bg-white hover:text-slate-900 transition-all duration-300 hover:scale-110 active:scale-90 shadow-2xl">
-                        <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i>
-                    </button>
-                    <button onclick="nextSlide()" class="p-3 md:p-5 rounded-full bg-white/20 text-white backdrop-blur-xl border border-white/20 hover:bg-white hover:text-slate-900 transition-all duration-300 hover:scale-110 active:scale-90 shadow-2xl">
-                        <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
-                    </button>
-                </div>
-                <div id="slide-dots" class="absolute bottom-8 right-8 z-20 hidden md:flex gap-3"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Day Care Highlights -->
-    <section class="py-12 md:py-24 px-4 md:px-6 bg-[#fcfdfd]">
-        <div class="max-w-7xl mx-auto text-center">
-            <div class="inline-flex items-center gap-3 bg-white text-teal-brand px-5 md:px-7 py-2 md:py-2.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-8 md:mb-10 shadow-sm border border-slate-100">
-                <span class="w-2 h-2 bg-orange-brand rounded-full animate-pulse"></span> First Time in Bhalki
-            </div>
-            <h3 class="text-3xl md:text-6xl font-extrabold mb-6 md:mb-10 leading-tight" style="color: var(--brand-text);">Day Care Ano-rectal Clinic</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10">
-                <!-- Vessel Sealer -->
-                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:bg-teal-50 hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
-                    <div class="bg-teal-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-teal-brand group-active:bg-teal-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="activity" class="text-teal-brand w-6 h-6 md:w-10 md:h-10"></i>
-                    </div>
-                    <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Vessel Sealer</h5>
-                </div>
-                <!-- Radio Frequency -->
-                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:bg-orange-50 hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
-                    <div class="bg-orange-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-orange-brand group-active:bg-orange-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="zap" class="text-orange-brand w-6 h-6 md:w-10 md:h-10"></i>
-                    </div>
-                    <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Radio Frequency</h5>
-                </div>
-                <!-- Advanced Laser -->
-                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:bg-amber-50 hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
-                    <div class="bg-gold-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-gold-brand group-active:bg-gold-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="microscope" class="text-gold-brand w-6 h-6 md:w-10 md:h-10"></i>
-                    </div>
-                    <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Advanced Laser</h5>
-                </div>
-                <!-- Dietary Guidance -->
-                <div class="highlight-card bg-white p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] premium-shadow border border-slate-50 transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] hover:bg-teal-50 hover:-translate-y-2 active:scale-95 group text-center cursor-pointer">
-                    <div class="bg-teal-50/70 w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-3xl flex items-center justify-center mx-auto mb-4 md:mb-8 group-hover:bg-teal-brand group-active:bg-teal-brand transition-all duration-500 group-hover:scale-110">
-                        <i data-lucide="utensils" class="text-teal-brand w-6 h-6 md:w-10 md:h-10"></i>
-                    </div>
-                    <h5 class="font-bold text-sm md:text-lg" style="color: var(--brand-text);">Dietary Guidance</h5>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Specialized Care (What We Do) -->
-    <section id="what-we-do" class="py-16 md:py-32 px-4 md:px-6 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 md:mb-24 fade-in">
-                <span class="text-gold-brand font-bold uppercase tracking-[0.3em] text-[11px] md:text-[13px] mb-6 block">Specialized Proctology Care</span>
-                <h3 class="text-3xl md:text-5xl font-extrabold mb-6 md:mb-8">What We Do At Our Center</h3>
-                <div class="w-20 md:w-24 h-1.5 bg-gradient-to-r from-teal-400 to-teal-600 mx-auto rounded-full"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                <!-- Piles -->
-                <div class="bg-slate-50/50 p-8 rounded-3xl border-2 border-transparent card-interaction group">
-                    <div class="flex flex-col lg:flex-row gap-6 items-center">
-                        <div class="w-20 h-20 bg-white text-teal-brand rounded-2xl flex-shrink-0 flex items-center justify-center shadow-md group-hover:bg-teal-brand group-hover:text-white transition-all">
-                            <i data-lucide="leaf" class="w-10 h-10"></i>
-                        </div>
-                        <div class="text-center lg:text-left">
-                            <h4 class="text-xl font-bold mb-2">PILES (Hemorrhoids)</h4>
-                            <p class="text-sm opacity-90">Ayurvedic formulations for initial stages & signature Ksharakarma for advanced relief.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Fistula -->
-                <div class="bg-slate-50/50 p-8 rounded-3xl border-2 border-transparent card-interaction group">
-                    <div class="flex flex-col lg:flex-row gap-6 items-center">
-                        <div class="w-20 h-20 bg-white text-orange-brand rounded-2xl flex-shrink-0 flex items-center justify-center shadow-md group-hover:bg-orange-brand group-hover:text-white transition-all">
-                            <i data-lucide="git-branch" class="w-10 h-10"></i>
-                        </div>
-                        <div class="text-center lg:text-left">
-                            <h4 class="text-xl font-bold mb-2">FISTULA-in-ANO</h4>
-                            <p class="text-sm opacity-90">Specialized IFTak technique with Kshara Sutra for high success and safety.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Anal Fissure -->
-                <div class="bg-slate-50/50 p-8 rounded-3xl border-2 border-transparent card-interaction group">
-                    <div class="flex flex-col lg:flex-row gap-6 items-center">
-                        <div class="w-20 h-20 bg-white text-gold-brand rounded-2xl flex-shrink-0 flex items-center justify-center shadow-md group-hover:bg-gold-brand group-hover:text-white transition-all">
-                            <i data-lucide="activity" class="w-10 h-10"></i>
-                        </div>
-                        <div class="text-center lg:text-left">
-                            <h4 class="text-xl font-bold mb-2">ANAL FISSURE</h4>
-                            <p class="text-sm opacity-90">Matravasti paired with Ayurvedic relaxation techniques for pain-free healing.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Pilonidal Sinus -->
-                <div class="bg-slate-50/50 p-8 rounded-3xl border-2 border-transparent card-interaction group">
-                    <div class="flex flex-col lg:flex-row gap-6 items-center">
-                        <div class="w-20 h-20 bg-white text-slate-900 rounded-2xl flex-shrink-0 flex items-center justify-center shadow-md group-hover:bg-slate-900 group-hover:text-white transition-all">
-                            <i data-lucide="target" class="w-10 h-10"></i>
-                        </div>
-                        <div class="text-center lg:text-left">
-                            <h4 class="text-xl font-bold mb-2">PILONIDAL SINUS</h4>
-                            <p class="text-sm opacity-90">Advanced technique of Kshara Karma with Laser assistance for permanent recovery.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Other Services/Procedures Section -->
-    <section id="procedures" class="py-16 md:py-32 px-4 md:px-6 bg-slate-50">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 md:mb-24 fade-in">
-                <span class="text-teal-brand font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] text-[11px] md:text-[13px] mb-6 block">Comprehensive Care</span>
-                <h3 class="text-3xl md:text-5xl font-extrabold mb-6 md:mb-8" style="color: var(--brand-text);">Other Procedures We Offer</h3>
-                <div class="w-20 md:w-24 h-1 md:h-1.5 bg-gradient-to-r from-gold-400 to-gold-600 mx-auto rounded-full"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-teal-50 text-teal-brand rounded-2xl group-hover:bg-teal-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="shield-plus" class="w-6 h-6"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg">Medical Management for Piles</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-orange-50 text-orange-brand rounded-2xl group-hover:bg-orange-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="git-merge" class="w-6 h-6"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg">IFTAK With Kshara Sutra</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-blue-50 text-blue-600 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                        <i data-lucide="video" class="w-6 h-6"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg">Arshoscopy (Videography)</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-teal-50 text-teal-brand rounded-2xl group-hover:bg-teal-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="microscope" class="w-6 h-6"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg">Mucopexy</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-orange-50 text-orange-brand rounded-2xl group-hover:bg-orange-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="zap" class="w-6 h-6"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg">Laser Fissurectomy</span>
-                </div>
-                <div class="bg-white p-8 rounded-3xl card-interaction flex items-center gap-6 group">
-                    <div class="p-3 bg-gold-50 text-gold-brand rounded-2xl group-hover:bg-gold-brand group-hover:text-white transition-all duration-300">
-                        <i data-lucide="activity" class="w-6 h-6"></i>
-                    </div>
-                    <span class="font-bold text-base md:text-lg">HAL-RAR</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Clinical Success Gallery -->
-    <section id="gallery" class="py-20 md:py-32 px-4 md:px-6 bg-white overflow-hidden border-t border-slate-50">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 md:mb-24 fade-in">
-                <span class="text-orange-brand font-bold uppercase tracking-[0.3em] text-[11px] mb-6 block">Visual Documentation</span>
-                <h3 class="text-3xl md:text-[2.5rem] font-extrabold mb-8">Clinical Success Gallery</h3>
-                <div class="w-24 h-1.5 bg-gradient-to-r from-orange-400 to-orange-600 mx-auto rounded-full"></div>
-                <p class="mt-8 text-slate-500 max-w-2xl mx-auto italic">High-quality medical imaging documenting successful patient recovery at our Bhalki center.</p>
-            </div>
-
-            <div class="carousel-container">
-                <div id="gallery-track" class="carousel-track">
-                    <!-- Cards will be rendered by JS -->
-                </div>
-            </div>
-
-            <div class="flex items-center justify-center mt-12 gap-8">
-                <div class="flex gap-4">
-                    <button onclick="scrollGallery('left')" class="p-5 rounded-full bg-white border border-slate-200 text-orange-brand hover:bg-orange-brand hover:text-white transition-all shadow-xl active:scale-90">
-                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
-                    </button>
-                    <button onclick="scrollGallery('right')" class="p-5 rounded-full bg-white border border-slate-200 text-orange-brand hover:bg-orange-brand hover:text-white transition-all shadow-xl active:scale-90">
-                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
-                    </button>
-                </div>
-                <div id="gallery-dots" class="flex gap-3"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section id="testimonials" class="py-20 md:py-32 px-4 md:px-6 bg-[#fcfdfd] overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 md:mb-24 fade-in">
-                <span class="text-gold-brand font-bold uppercase tracking-[0.3em] text-[11px] mb-6 block">Patient Feedback</span>
-                <h3 class="text-3xl md:text-[2.5rem] font-extrabold mb-8">What Our Patients Say</h3>
-                <div class="w-24 h-1.5 bg-gradient-to-r from-teal-400 to-teal-600 mx-auto rounded-full"></div>
-            </div>
-
-            <div class="carousel-container">
-                <div id="testimonial-track" class="carousel-track">
-                    <!-- Testimonials will be rendered by JS -->
-                </div>
-            </div>
-
-            <div class="flex items-center justify-center mt-12 gap-8">
-                <div class="flex gap-4">
-                    <button onclick="scrollTestimonials('left')" class="p-5 rounded-full bg-white border border-slate-200 text-teal-brand hover:bg-teal-brand hover:text-white transition-all shadow-xl active:scale-90">
-                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
-                    </button>
-                    <button onclick="scrollTestimonials('right')" class="p-5 rounded-full bg-white border border-slate-200 text-teal-brand hover:bg-teal-brand hover:text-white transition-all shadow-xl active:scale-90">
-                        <i data-lucide="arrow-right" class="w-6 h-6"></i>
-                    </button>
-                </div>
-                <div id="testimonial-dots" class="flex gap-3"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Doctor Profile -->
-    <section id="doctor-profile" class="py-16 md:py-32 px-4 md:px-6 bg-white border-t border-slate-50">
-        <div class="max-w-6xl mx-auto">
-            <div class="bg-slate-50/80 rounded-3xl md:rounded-[4.5rem] shadow-xl overflow-hidden flex flex-col md:flex-row items-center border-2 border-white fade-in">
-                <div class="w-full md:w-1/2 h-[450px] md:h-[650px] overflow-hidden">
-                    <img src="assets/doctor.jpeg" alt="Dr. Kapil Reddy" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=800'">
-                </div>
-                <div class="w-full md:w-1/2 p-10 md:p-20">
-                    <span class="text-teal-brand font-black uppercase tracking-[0.3em] text-[10px] mb-6 block">Lead Proctologist</span>
-                    <h3 class="text-4xl md:text-6xl font-extrabold mb-4">Dr. Kapil Reddy</h3>
-                    <p class="text-gold-brand font-bold text-lg mb-10 tracking-wide uppercase opacity-90">B.A.M.S (RGUHS), Bangalore</p>
-                    <div class="space-y-6 mb-12">
-                        <div class="flex items-center gap-4 font-bold">
-                            <i data-lucide="check-circle" class="text-teal-brand w-6 h-6"></i>
-                            <span class="text-lg">Ayurvedic Proctologist (Reg No: 29992)</span>
-                        </div>
-                        <div class="flex items-center gap-4 font-bold">
-                            <i data-lucide="award" class="text-orange-brand w-6 h-6"></i>
-                            <span class="text-lg">Specialist in Kshara Sutra & Laser</span>
-                        </div>
-                    </div>
-                    <a href="tel:8123198711" class="btn-cta text-white px-10 py-5 rounded-2xl font-black inline-flex items-center gap-4 transition-all">
-                        <i data-lucide="phone-call" class="w-6 h-6"></i> Get Consultation
+<body>
+    <!-- ========================================
+         HEADER / NAVIGATION
+         ======================================== -->
+    <header class="header" id="header" role="banner">
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <div class="nav__container">
+                <!-- Logo Section -->
+                <div class="nav__brand">
+                    <a href="#" class="nav__logo" aria-label="Dr. Reddy's Clinic - Home">
+                        <img src="assets/logo.png" alt="Dr. Reddy's Clinic Logo" class="nav__logo-img"
+                            onerror="this.src='assets/logo.jpeg'">
                     </a>
+                    <div class="nav__brand-text">
+                        <img src="assets/header.png" alt="Dr. Reddy's - Ayurvedic Proctology Clinic"
+                            class="nav__brand-img" onerror="this.style.display='none'">
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list" role="menubar">
+                        <li class="nav__item" role="none"><a href="#what-we-do" class="nav__link" role="menuitem">What
+                                We Do</a></li>
+                        <li class="nav__item" role="none"><a href="#procedures" class="nav__link"
+                                role="menuitem">Procedures</a></li>
+                        <li class="nav__item" role="none"><a href="#gallery" class="nav__link"
+                                role="menuitem">Gallery</a></li>
+                        <li class="nav__item" role="none"><a href="#testimonials" class="nav__link"
+                                role="menuitem">Reviews</a></li>
+                        <li class="nav__item" role="none"><a href="#doctor-profile" class="nav__link"
+                                role="menuitem">About Doctor</a></li>
+                    </ul>
+                </div>
+
+                <!-- CTA & Mobile Toggle -->
+                <div class="nav__actions">
+                    <a href="tel:8123198711" class="btn btn--primary btn--cta nav__cta">
+                        <i data-lucide="phone" class="btn__icon" aria-hidden="true"></i>
+                        <span>8123198711</span>
+                    </a>
+                    <button class="nav__toggle" id="nav-toggle" aria-label="Toggle Menu" aria-expanded="false"
+                        aria-controls="mobile-menu">
+                        <span class="nav__toggle-bar"></span>
+                        <span class="nav__toggle-bar"></span>
+                        <span class="nav__toggle-bar"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Navigation Overlay -->
+        <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
+            <div class="mobile-menu__backdrop" id="mobile-backdrop"></div>
+            <div class="mobile-menu__panel">
+                <div class="mobile-menu__header">
+                    <div class="mobile-menu__brand">
+                        <img src="assets/logo.png" alt="Logo" class="mobile-menu__logo"
+                            onerror="this.src='assets/logo.jpeg'">
+                        <img src="assets/header.png" alt="Dr. Reddy's" class="mobile-menu__brand-text"
+                            onerror="this.style.display='none'">
+                    </div>
+                    <button class="mobile-menu__close" id="mobile-close" aria-label="Close menu">
+                        <i data-lucide="x" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <nav class="mobile-menu__nav">
+                    <a href="#what-we-do" class="mobile-menu__link">What We Do</a>
+                    <a href="#procedures" class="mobile-menu__link">Procedures</a>
+                    <a href="#gallery" class="mobile-menu__link">Gallery</a>
+                    <a href="#testimonials" class="mobile-menu__link">Reviews</a>
+                    <a href="#doctor-profile" class="mobile-menu__link">About Doctor</a>
+                </nav>
+                <div class="mobile-menu__footer">
+                    <a href="tel:8123198711" class="btn btn--primary btn--lg btn--block">
+                        <i data-lucide="phone-call" class="btn__icon" aria-hidden="true"></i>
+                        Call Now: 8123198711
+                    </a>
+                    <p class="mobile-menu__tagline">Quality Care Made Easy</p>
                 </div>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-white pt-20 pb-12 px-6">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-white/10 pb-16">
-            <div class="lg:col-span-2">
-                <div class="text-2xl font-black mb-8">DR. REDDY'S <span class="text-teal-brand">CLINIC</span></div>
-                <p class="text-slate-400 leading-relaxed max-w-sm italic opacity-80">Near Jadhav Hospital, New Sonar Lane, Khandre Galli, Bhalki – 585328, Dist. Bidar (KS)</p>
+    <!-- ========================================
+         MAIN CONTENT
+         ======================================== -->
+    <main role="main" id="main-content">
+
+        <!-- =====================================
+             HERO SECTION - Image Slider
+             ===================================== -->
+        <section class="hero" id="hero" aria-label="Hero Section">
+            <div class="container">
+                <div class="hero__slider">
+                    <div class="slider" id="slider-root" role="region" aria-label="Featured treatments slider">
+                        <!-- Slides rendered by JS -->
+                    </div>
+
+                    <!-- Slider Navigation -->
+                    <div class="slider__nav">
+                        <button class="slider__btn slider__btn--prev" id="slider-prev" aria-label="Previous slide">
+                            <i data-lucide="chevron-left" aria-hidden="true"></i>
+                        </button>
+                        <button class="slider__btn slider__btn--next" id="slider-next" aria-label="Next slide">
+                            <i data-lucide="chevron-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+                    <!-- Slider Dots -->
+                    <div class="slider__dots" id="slide-dots" role="tablist" aria-label="Slide navigation"></div>
+
+                    <!-- Progress Bar -->
+                    <div class="slider__progress">
+                        <div class="slider__progress-bar" id="slide-progress"></div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h6 class="font-black text-xs uppercase tracking-[0.3em] text-gold-brand mb-8">Contact</h6>
-                <a href="tel:8123198711" class="text-3xl font-black hover:text-teal-brand transition-all">8123198711</a>
+        </section>
+
+        <!-- =====================================
+             HIGHLIGHTS SECTION - Day Care Features
+             ===================================== -->
+        <section class="highlights" id="highlights" aria-label="Day Care Highlights">
+            <div class="container">
+                <header class="section-header reveal-up">
+                    <span class="section-header__badge">
+                        <span class="pulse-dot"></span>
+                        First Time in Bhalki
+                    </span>
+                    <h2 class="section-header__title">Day Care Anorectal Clinic</h2>
+                </header>
+
+                <div class="highlights__grid">
+                    <article class="highlight-card reveal-up" data-delay="0">
+                        <div class="highlight-card__icon highlight-card__icon--teal">
+                            <i data-lucide="activity" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="highlight-card__title">Vessel Sealer</h3>
+                        <p class="highlight-card__desc">Precision hemostasis technology</p>
+                    </article>
+
+                    <article class="highlight-card reveal-up" data-delay="100">
+                        <div class="highlight-card__icon highlight-card__icon--orange">
+                            <i data-lucide="zap" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="highlight-card__title">Radio Frequency</h3>
+                        <p class="highlight-card__desc">Advanced RF ablation therapy</p>
+                    </article>
+
+                    <article class="highlight-card reveal-up" data-delay="200">
+                        <div class="highlight-card__icon highlight-card__icon--gold">
+                            <i data-lucide="microscope" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="highlight-card__title">Advanced Laser</h3>
+                        <p class="highlight-card__desc">Minimally invasive procedures</p>
+                    </article>
+
+                    <article class="highlight-card reveal-up" data-delay="300">
+                        <div class="highlight-card__icon highlight-card__icon--teal">
+                            <i data-lucide="utensils" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="highlight-card__title">Dietary Guidance</h3>
+                        <p class="highlight-card__desc">Holistic treatment approach</p>
+                    </article>
+                </div>
             </div>
-            <div class="bg-white/5 p-8 rounded-3xl border border-white/10">
-                <h6 class="font-black text-xs text-center uppercase tracking-[0.3em] mb-6 text-slate-400">Clinic Hours</h6>
-                <div class="flex justify-between font-bold border-b border-white/10 pb-3 mb-3 text-sm"><span>Mon - Sat</span><span class="text-teal-400">10AM - 7PM</span></div>
-                <div class="flex justify-between font-bold text-sm"><span>Sunday</span><span class="text-orange-brand">Appt Only</span></div>
+        </section>
+
+        <!-- =====================================
+             WHAT WE DO SECTION - Specialized Care
+             ===================================== -->
+        <section class="services" id="what-we-do" aria-labelledby="services-title">
+            <div class="container">
+                <header class="section-header reveal-up">
+                    <span class="section-header__label">Specialized Proctology Care</span>
+                    <h2 class="section-header__title" id="services-title">What We Do At Our Center</h2>
+                    <div class="section-header__divider"></div>
+                </header>
+
+                <div class="services__grid">
+                    <article class="service-card reveal-up" data-delay="0">
+                        <div class="service-card__icon service-card__icon--teal">
+                            <i data-lucide="leaf" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-card__content">
+                            <h3 class="service-card__title">PILES (Hemorrhoids)</h3>
+                            <p class="service-card__desc">Ayurvedic formulations for initial stages & signature
+                                Ksharakarma for advanced relief with minimal discomfort.</p>
+                        </div>
+                        <div class="service-card__arrow">
+                            <i data-lucide="arrow-right" aria-hidden="true"></i>
+                        </div>
+                    </article>
+
+                    <article class="service-card reveal-up" data-delay="100">
+                        <div class="service-card__icon service-card__icon--orange">
+                            <i data-lucide="git-branch" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-card__content">
+                            <h3 class="service-card__title">FISTULA-in-ANO</h3>
+                            <p class="service-card__desc">Specialized IFTak technique with Kshara Sutra for high success
+                                rates and maximum safety.</p>
+                        </div>
+                        <div class="service-card__arrow">
+                            <i data-lucide="arrow-right" aria-hidden="true"></i>
+                        </div>
+                    </article>
+
+                    <article class="service-card reveal-up" data-delay="200">
+                        <div class="service-card__icon service-card__icon--gold">
+                            <i data-lucide="activity" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-card__content">
+                            <h3 class="service-card__title">ANAL FISSURE</h3>
+                            <p class="service-card__desc">Matravasti paired with Ayurvedic relaxation techniques for
+                                pain-free and lasting healing.</p>
+                        </div>
+                        <div class="service-card__arrow">
+                            <i data-lucide="arrow-right" aria-hidden="true"></i>
+                        </div>
+                    </article>
+
+                    <article class="service-card reveal-up" data-delay="300">
+                        <div class="service-card__icon service-card__icon--dark">
+                            <i data-lucide="target" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-card__content">
+                            <h3 class="service-card__title">PILONIDAL SINUS</h3>
+                            <p class="service-card__desc">Advanced technique of Kshara Karma with Laser assistance for
+                                permanent recovery.</p>
+                        </div>
+                        <div class="service-card__arrow">
+                            <i data-lucide="arrow-right" aria-hidden="true"></i>
+                        </div>
+                    </article>
+                </div>
             </div>
-        </div>
-        <div class="mt-12 text-center text-[10px] text-slate-500 font-black uppercase tracking-[0.4em]">
-            <p>© 2026 Dr. Reddy’s Clinic • Quality Care Made Easy</p>
+        </section>
+
+        <!-- =====================================
+             PROCEDURES SECTION - Other Services
+             ===================================== -->
+        <section class="procedures" id="procedures" aria-labelledby="procedures-title">
+            <div class="container">
+                <header class="section-header reveal-up">
+                    <span class="section-header__label section-header__label--teal">Comprehensive Care</span>
+                    <h2 class="section-header__title" id="procedures-title">Other Procedures We Offer</h2>
+                    <div class="section-header__divider section-header__divider--gold"></div>
+                </header>
+
+                <div class="procedures__grid">
+                    <article class="procedure-card reveal-up" data-delay="0">
+                        <div class="procedure-card__icon procedure-card__icon--teal">
+                            <i data-lucide="shield-plus" aria-hidden="true"></i>
+                        </div>
+                        <span class="procedure-card__name">Medical Management for Piles</span>
+                    </article>
+
+                    <article class="procedure-card reveal-up" data-delay="50">
+                        <div class="procedure-card__icon procedure-card__icon--orange">
+                            <i data-lucide="git-merge" aria-hidden="true"></i>
+                        </div>
+                        <span class="procedure-card__name">IFTAK With Kshara Sutra</span>
+                    </article>
+
+                    <article class="procedure-card reveal-up" data-delay="100">
+                        <div class="procedure-card__icon procedure-card__icon--blue">
+                            <i data-lucide="video" aria-hidden="true"></i>
+                        </div>
+                        <span class="procedure-card__name">Arshoscopy (Videography)</span>
+                    </article>
+
+                    <article class="procedure-card reveal-up" data-delay="150">
+                        <div class="procedure-card__icon procedure-card__icon--teal">
+                            <i data-lucide="microscope" aria-hidden="true"></i>
+                        </div>
+                        <span class="procedure-card__name">Mucopexy</span>
+                    </article>
+
+                    <article class="procedure-card reveal-up" data-delay="200">
+                        <div class="procedure-card__icon procedure-card__icon--orange">
+                            <i data-lucide="zap" aria-hidden="true"></i>
+                        </div>
+                        <span class="procedure-card__name">Laser Fissurectomy</span>
+                    </article>
+
+                    <article class="procedure-card reveal-up" data-delay="250">
+                        <div class="procedure-card__icon procedure-card__icon--gold">
+                            <i data-lucide="activity" aria-hidden="true"></i>
+                        </div>
+                        <span class="procedure-card__name">HAL-RAR</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================
+             GALLERY SECTION - Clinical Success
+             ===================================== -->
+        <section class="gallery" id="gallery" aria-labelledby="gallery-title">
+            <div class="container">
+                <header class="section-header reveal-up">
+                    <span class="section-header__label section-header__label--orange">Visual Documentation</span>
+                    <h2 class="section-header__title" id="gallery-title">Clinical Success Gallery</h2>
+                    <div class="section-header__divider section-header__divider--orange"></div>
+                    <p class="section-header__subtitle">High-quality medical imaging documenting successful patient
+                        recovery at our Bhalki center.</p>
+                </header>
+
+                <div class="carousel reveal-up">
+                    <div class="carousel__container">
+                        <div class="carousel__track" id="gallery-track" role="list">
+                            <!-- Gallery cards rendered by JS -->
+                        </div>
+                    </div>
+
+                    <div class="carousel__controls">
+                        <div class="carousel__nav">
+                            <button class="carousel__btn carousel__btn--prev" id="gallery-prev"
+                                aria-label="Previous image">
+                                <i data-lucide="chevron-left" aria-hidden="true"></i>
+                            </button>
+                            <button class="carousel__btn carousel__btn--next" id="gallery-next" aria-label="Next image">
+                                <i data-lucide="chevron-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="carousel__dots" id="gallery-dots" role="tablist"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================
+             TESTIMONIALS SECTION - Patient Reviews
+             ===================================== -->
+        <section class="testimonials" id="testimonials" aria-labelledby="testimonials-title">
+            <div class="container">
+                <header class="section-header reveal-up">
+                    <span class="section-header__label section-header__label--gold">Patient Feedback</span>
+                    <h2 class="section-header__title" id="testimonials-title">What Our Patients Say</h2>
+                    <div class="section-header__divider section-header__divider--teal"></div>
+                </header>
+
+                <div class="carousel reveal-up">
+                    <div class="carousel__container">
+                        <div class="carousel__track" id="testimonial-track" role="list">
+                            <!-- Testimonials rendered by JS -->
+                        </div>
+                    </div>
+
+                    <div class="carousel__controls">
+                        <div class="carousel__nav">
+                            <button class="carousel__btn carousel__btn--teal carousel__btn--prev" id="testimonial-prev"
+                                aria-label="Previous testimonial">
+                                <i data-lucide="arrow-left" aria-hidden="true"></i>
+                            </button>
+                            <button class="carousel__btn carousel__btn--teal carousel__btn--next" id="testimonial-next"
+                                aria-label="Next testimonial">
+                                <i data-lucide="arrow-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="carousel__dots carousel__dots--teal" id="testimonial-dots" role="tablist"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================
+             DOCTOR PROFILE SECTION
+             ===================================== -->
+        <section class="doctor" id="doctor-profile" aria-labelledby="doctor-title">
+            <div class="container">
+                <article class="doctor-card reveal-up">
+                    <div class="doctor-card__image">
+                        <img src="assets/doctor.jpeg" alt="Dr. Kapil Reddy - Ayurvedic Proctologist & Anorectal Surgeon"
+                            loading="lazy"
+                            onerror="this.src='https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=800'">
+                        <div class="doctor-card__badge">
+                            <i data-lucide="award" aria-hidden="true"></i>
+                            <span>Chief Consultant</span>
+                        </div>
+                    </div>
+                    <div class="doctor-card__content">
+                        <span class="doctor-card__label">Ayurvedic Proctologist & Anorectal Surgeon</span>
+                        <h2 class="doctor-card__name" id="doctor-title">Dr. Kapil Reddy</h2>
+                        <p class="doctor-card__qualification">B.A.M.S (RGUHS), Bangalore</p>
+
+                        <p class="doctor-card__bio">Dr. Kapil Reddy is a specialized Ayurvedic practitioner focused on
+                            the diagnosis and treatment of anorectal disorders. He serves as the chief consultant at Dr.
+                            Reddy's Ayurvedic Anorectal Clinic and Laser Center, located in Bhalki, Karnataka.</p>
+
+                        <ul class="doctor-card__credentials">
+                            <li class="doctor-card__credential">
+                                <i data-lucide="stethoscope" class="credential-icon credential-icon--teal"
+                                    aria-hidden="true"></i>
+                                <span>Specializes in Piles, Fistula & Fissure Treatment</span>
+                            </li>
+                            <li class="doctor-card__credential">
+                                <i data-lucide="sparkles" class="credential-icon credential-icon--orange"
+                                    aria-hidden="true"></i>
+                                <span>Kshara Karma & Kshara Sutra Therapies</span>
+                            </li>
+                            <li class="doctor-card__credential">
+                                <i data-lucide="zap" class="credential-icon credential-icon--gold"
+                                    aria-hidden="true"></i>
+                                <span>Modern Laser Treatment Expert</span>
+                            </li>
+                            <li class="doctor-card__credential">
+                                <i data-lucide="check-circle" class="credential-icon credential-icon--teal"
+                                    aria-hidden="true"></i>
+                                <span>Ayurvedic Proctologist (Reg No: 29992)</span>
+                            </li>
+                        </ul>
+
+                        <div class="doctor-card__cta">
+                            <a href="tel:8123198711" class="btn btn--primary btn--lg">
+                                <i data-lucide="phone-call" class="btn__icon" aria-hidden="true"></i>
+                                Get Consultation
+                            </a>
+                            <a href="https://wa.me/918123198711" target="_blank" rel="noopener"
+                                class="btn btn--whatsapp btn--lg">
+                                <i data-lucide="message-circle" class="btn__icon" aria-hidden="true"></i>
+                                WhatsApp
+                            </a>
+                        </div>
+
+                        <div class="doctor-card__social">
+                            <a href="https://www.facebook.com/share/17tJ4RZuUy/" target="_blank" rel="noopener"
+                                class="doctor-social-link doctor-social-link--facebook" aria-label="Follow on Facebook">
+                                <i data-lucide="facebook" aria-hidden="true"></i>
+                            </a>
+                            <a href="https://www.instagram.com/dr_reddys_anorectal_clinic?igsh=NnM1cXdmMmlkMTJ4"
+                                target="_blank" rel="noopener" class="doctor-social-link doctor-social-link--instagram"
+                                aria-label="Follow on Instagram">
+                                <i data-lucide="instagram" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- =====================================
+             CTA BANNER SECTION
+             ===================================== -->
+        <section class="cta-banner" aria-label="Call to action">
+            <div class="container">
+                <div class="cta-banner__content reveal-up">
+                    <div class="cta-banner__text">
+                        <h2 class="cta-banner__title">Ready to Start Your Healing Journey?</h2>
+                        <p class="cta-banner__desc">Experience world-class Ayurvedic treatment with modern technology.
+                            Book your consultation today.</p>
+                    </div>
+                    <div class="cta-banner__actions">
+                        <a href="tel:8123198711" class="btn btn--white btn--lg">
+                            <i data-lucide="phone-call" class="btn__icon" aria-hidden="true"></i>
+                            Call Now
+                        </a>
+                        <a href="https://wa.me/918123198711" target="_blank" rel="noopener"
+                            class="btn btn--outline-white btn--lg">
+                            <i data-lucide="message-circle" class="btn__icon" aria-hidden="true"></i>
+                            WhatsApp Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer class="footer" id="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__grid">
+                <!-- Brand Column -->
+                <div class="footer__brand">
+                    <div class="footer__logo">
+                        DR. REDDY'S <span class="text-accent">CLINIC</span>
+                    </div>
+                    <p class="footer__address">
+                        Near Jadhav Hospital, Lectures Colony,<br>
+                        Bhalki – 585328, Dist. Bidar (Karnataka)
+                    </p>
+                    <div class="footer__social">
+                        <a href="https://www.facebook.com/share/17tJ4RZuUy/" target="_blank" rel="noopener"
+                            class="footer__social-link" aria-label="Facebook">
+                            <i data-lucide="facebook" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.instagram.com/dr_reddys_anorectal_clinic?igsh=NnM1cXdmMmlkMTJ4"
+                            target="_blank" rel="noopener" class="footer__social-link" aria-label="Instagram">
+                            <i data-lucide="instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://wa.me/918123198711" target="_blank" rel="noopener" class="footer__social-link"
+                            aria-label="WhatsApp">
+                            <i data-lucide="message-circle" aria-hidden="true"></i>
+                        </a>
+                        <a href="tel:8123198711" class="footer__social-link" aria-label="Phone">
+                            <i data-lucide="phone" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer__column">
+                    <h4 class="footer__heading">Quick Links</h4>
+                    <nav class="footer__nav" aria-label="Footer navigation">
+                        <a href="#what-we-do" class="footer__link">What We Do</a>
+                        <a href="#procedures" class="footer__link">Procedures</a>
+                        <a href="#gallery" class="footer__link">Gallery</a>
+                        <a href="#testimonials" class="footer__link">Reviews</a>
+                        <a href="#doctor-profile" class="footer__link">About Doctor</a>
+                    </nav>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer__column">
+                    <h4 class="footer__heading">Contact</h4>
+                    <a href="tel:8123198711" class="footer__phone">8123198711</a>
+                    <p class="footer__contact-label">For appointments & emergencies</p>
+                </div>
+
+                <!-- Clinic Hours -->
+                <div class="footer__column">
+                    <div class="footer__hours-card">
+                        <h4 class="footer__hours-title">Clinic Hours</h4>
+                        <div class="footer__hours-row">
+                            <span>Mon - Sat</span>
+                            <span class="footer__hours-time footer__hours-time--open">10AM - 8PM</span>
+                        </div>
+                        <div class="footer__hours-row">
+                            <span>Sunday</span>
+                            <span class="footer__hours-time footer__hours-time--appt">Appointment Only</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2026 Dr. Reddy's Clinic • Quality Care Made Easy</p>
+            </div>
         </div>
     </footer>
 
-    <!-- Floating Buttons -->
-    <div class="fixed bottom-8 right-6 z-[150] flex flex-col gap-6">
-        <a href="https://wa.me/918123198711" target="_blank" class="w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl pulse-whatsapp transition-transform hover:scale-110">
-            <i data-lucide="message-circle" class="w-8 h-8"></i>
+    <!-- ========================================
+         FLOATING ACTION BUTTONS
+         ======================================== -->
+    <div class="floating-actions" aria-label="Quick contact buttons">
+        <a href="https://wa.me/918123198711" target="_blank" rel="noopener" class="fab fab--whatsapp"
+            aria-label="Contact via WhatsApp">
+            <i data-lucide="message-circle" aria-hidden="true"></i>
         </a>
-        <a href="tel:8123198711" class="w-14 h-14 bg-teal-brand text-white rounded-full flex items-center justify-center shadow-2xl transition-transform hover:scale-110">
-            <i data-lucide="phone-call" class="w-8 h-8"></i>
+        <a href="tel:8123198711" class="fab fab--phone" aria-label="Call clinic">
+            <i data-lucide="phone-call" aria-hidden="true"></i>
         </a>
     </div>
 
-    <script>
-        function initLucide() {
-            lucide.createIcons({
-                strokeWidth: 2.5
-            });
-        }
-
-        function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden-menu');
-        }
-
-        const slidesData = [
-            { title: "Advanced Cure for PILES", desc: "Ayurvedic formulations & signature Ksharakarma treatment for permanent relief.", image: "assets/slider-1.png" },
-            { title: "IFTak Technique for FISTULA", desc: "Complementing Kshara Sutra for high success rates without sphincter damage.", image: "assets/slider-2.png" },
-            { title: "Laser-Assisted SINUS Care", desc: "Kshara Karma with modern laser assistance for pilonidal sinus treatment.", image: "assets/slider-3.png" }
-        ];
-
-        let currentSlide = 0;
-        const sliderInterval = 7000;
-        let progressInterval;
-
-        function initSlider() {
-            const root = document.getElementById('slider-root');
-            const dots = document.getElementById('slide-dots');
-            if (!root || !dots) return;
-
-            slidesData.forEach((slide, idx) => {
-                const slideDiv = document.createElement('div');
-                slideDiv.className = `slide ${idx === 0 ? 'active' : ''}`;
-                slideDiv.id = `slide-${idx}`;
-                slideDiv.innerHTML = `
-                    <div class="absolute inset-0 z-0 bg-slate-800 overflow-hidden">
-                        <img src="${slide.image}" class="w-full h-full object-cover opacity-60 transition-transform duration-[7s] slide-img" onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200'">
-                    </div>
-                    <div class="slide-overlay absolute inset-0 z-10"></div>
-                    <div class="slide-content relative z-20 px-6 md:px-24 max-w-5xl text-white">
-                        <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-xl text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-white/20">Day Care Procedure</span>
-                        <h2 class="text-3xl md:text-[5.5rem] font-black mb-6 leading-tight">${slide.title}</h2>
-                        <p class="text-base md:text-2xl opacity-90 max-w-2xl italic mb-10">${slide.desc}</p>
-                        <a href="tel:8123198711" class="btn-cta text-white px-8 py-4 rounded-xl font-black inline-flex items-center gap-3">
-                            <i data-lucide="phone-call" class="w-5 h-5"></i> Call Clinic Now
-                        </a>
-                    </div>
-                `;
-                root.appendChild(slideDiv);
-                const dot = document.createElement('button');
-                dot.className = `w-4 h-4 rounded-full transition-all duration-700 ${idx === 0 ? 'bg-white w-12' : 'bg-white/20'}`;
-                dot.onclick = () => goToSlide(idx);
-                dots.appendChild(dot);
-            });
-            startProgress();
-        }
-
-        function startProgress() {
-            const bar = document.getElementById('slide-progress');
-            let start = null;
-            function step(timestamp) {
-                if (!start) start = timestamp;
-                const progress = ((timestamp - start) / sliderInterval) * 100;
-                bar.style.width = `${Math.min(progress, 100)}%`;
-                if (progress < 100) progressInterval = requestAnimationFrame(step);
-                else nextSlide();
-            }
-            progressInterval = requestAnimationFrame(step);
-        }
-
-        function goToSlide(idx) {
-            cancelAnimationFrame(progressInterval);
-            const active = document.querySelector('.slide.active');
-            if (active) active.classList.remove('active');
-            const target = document.getElementById(`slide-${idx}`);
-            if (target) target.classList.add('active');
-            
-            const dots = document.getElementById('slide-dots').children;
-            Array.from(dots).forEach((dot, i) => {
-                dot.classList.remove('bg-white', 'w-12');
-                dot.classList.add('bg-white/20');
-                if (i === idx) { dot.classList.add('bg-white', 'w-12'); dot.classList.remove('bg-white/20'); }
-            });
-            currentSlide = idx;
-            startProgress();
-        }
-
-        function nextSlide() { goToSlide((currentSlide + 1) % slidesData.length); }
-        function prevSlide() { goToSlide((currentSlide - 1 + slidesData.length) % slidesData.length); }
-
-        const galleryImages = [
-            { id: 1, src: "assets/p1.jpeg", caption: "Successful Piles Treatment" },
-            { id: 2, src: "assets/p2.jpeg", caption: "Complex Fistula Case Recovery" },
-            { id: 3, src: "assets/p3.jpeg", caption: "Laser assisted results" },
-            { id: 4, src: "assets/p4.jpeg", caption: "Patient Post-Op Result" },
-            { id: 5, src: "assets/p5.jpeg", caption: "Clinical Documentation" },
-            { id: 6, src: "assets/p6.jpeg", caption: "Treatment Progress Case" },
-            { id: 7, src: "assets/p7.jpeg", caption: "Advanced Pilonidal Care" }
-        ];
-
-        let currentGalleryIndex = 0;
-
-        function renderGallery() {
-            const track = document.getElementById('gallery-track');
-            const dotsContainer = document.getElementById('gallery-dots');
-            if (!track || !dotsContainer) return;
-            track.innerHTML = '';
-            dotsContainer.innerHTML = '';
-            
-            galleryImages.forEach((img, i) => {
-                const card = document.createElement('div');
-                card.className = 'gallery-card relative group';
-                card.innerHTML = `
-                    <img src="${img.src}" alt="${img.caption}" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=400'">
-                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-10">
-                        <p class="text-white font-bold text-center text-sm">${img.caption}</p>
-                    </div>
-                `;
-                track.appendChild(card);
-                const dot = document.createElement('button');
-                dot.className = `w-2 h-2 rounded-full transition-all duration-500 ${i === 0 ? 'bg-orange-brand w-6' : 'bg-slate-200'}`;
-                dot.onclick = () => scrollToGallery(i);
-                dotsContainer.appendChild(dot);
-            });
-        }
-
-        function scrollToGallery(index) {
-            const track = document.getElementById('gallery-track');
-            const dots = document.getElementById('gallery-dots').children;
-            if (!track || !track.children.length) return;
-            
-            const card = track.children[0];
-            const cardWidth = card.getBoundingClientRect().width;
-            const style = window.getComputedStyle(card);
-            const marginRight = parseFloat(style.marginRight);
-            
-            currentGalleryIndex = index;
-            const offset = index * (cardWidth + marginRight);
-            track.style.transform = `translateX(-${offset}px)`;
-            
-            Array.from(dots).forEach((dot, i) => {
-                dot.classList.remove('bg-orange-brand', 'w-6');
-                dot.classList.add('bg-slate-200');
-                if (i === index) { dot.classList.add('bg-orange-brand', 'w-6'); dot.classList.remove('bg-slate-200'); }
-            });
-        }
-
-        function scrollGallery(direction) {
-            const visible = window.innerWidth >= 768 ? 2 : 1;
-            const max = galleryImages.length - visible;
-            if (direction === 'right') currentGalleryIndex = (currentGalleryIndex >= max) ? 0 : currentGalleryIndex + 1;
-            else currentGalleryIndex = (currentGalleryIndex <= 0) ? max : currentGalleryIndex - 1;
-            scrollToGallery(currentGalleryIndex);
-        }
-
-        const testimonialsData = [
-            { name: "Lingesh Biradar", initials: "LB", color: "bg-teal-50 text-teal-700", text: "One of the best kinds of hospitals specialised in piles treatment nearby, Best hands on experience Doctor available.", meta: "Verified Review • 11 months ago" },
-            { name: "Mirgaji Sudarshan", initials: "MS", color: "bg-orange-50 text-orange-700", text: "Nature and behaviour of doctor is very good. Correct explanation regarding the disease and suitable treatment will be given.", meta: "Verified Review • 11 months ago" },
-            { name: "Viswadeep Morambe", initials: "VM", color: "bg-blue-50 text-blue-700", text: "Well equiped hospital with cost effective procedures for piles operation. Highly recommended.", meta: "Eagle Watch • 11 months ago" },
-            { name: "Sudhakar Tugave", initials: "ST", color: "bg-rose-50 text-rose-700", text: "Calm, patient and responsive listens and responds professionally. A truly comforting experience.", meta: "4 reviews • 1 year ago" },
-            { name: "Amarja Mirasdar", initials: "AM", color: "bg-teal-50 text-teal-700", text: "Best service by the experienced doctor, most recommended for piles pain relief.", meta: "Verified Patient" }
-        ];
-
-        let currentTestimonial = 0;
-
-        function renderTestimonials() {
-            const track = document.getElementById('testimonial-track');
-            const dotsContainer = document.getElementById('testimonial-dots');
-            if (!track || !dotsContainer) return;
-            testimonialsData.forEach((t, i) => {
-                const card = document.createElement('div');
-                card.className = 'testimonial-card';
-                card.innerHTML = `
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="w-14 h-14 ${t.color} font-bold rounded-2xl flex items-center justify-center text-xl shadow-inner border border-current/10">${t.initials}</div>
-                        <div>
-                            <h5 class="font-bold text-lg">${t.name}</h5>
-                            <p class="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-1">${t.meta}</p>
-                        </div>
-                    </div>
-                    <div class="flex text-gold-brand mb-6 gap-1">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-base leading-relaxed italic opacity-90">"${t.text}"</p>
-                `;
-                track.appendChild(card);
-                const dot = document.createElement('button');
-                dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-500 ${i === 0 ? 'bg-teal-brand w-8' : 'bg-slate-200'}`;
-                dot.onclick = () => scrollToTestimonial(i);
-                dotsContainer.appendChild(dot);
-            });
-        }
-
-        function scrollToTestimonial(index) {
-            const track = document.getElementById('testimonial-track');
-            const dots = document.getElementById('testimonial-dots').children;
-            if (!track || !track.children.length) return;
-            
-            const card = track.children[0];
-            const cardWidth = card.getBoundingClientRect().width;
-            const style = window.getComputedStyle(card);
-            const marginRight = parseFloat(style.marginRight);
-            
-            currentTestimonial = index;
-            const offset = index * (cardWidth + marginRight);
-            track.style.transform = `translateX(-${offset}px)`;
-            
-            Array.from(dots).forEach((dot, i) => {
-                dot.classList.remove('bg-teal-brand', 'w-8');
-                dot.classList.add('bg-slate-200');
-                if (i === index) { dot.classList.add('bg-teal-brand', 'w-8'); dot.classList.remove('bg-slate-200'); }
-            });
-        }
-
-        function scrollTestimonials(direction) {
-            const visible = window.innerWidth >= 1280 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
-            const max = testimonialsData.length - visible;
-            if (direction === 'right') currentTestimonial = (currentTestimonial >= max) ? 0 : currentTestimonial + 1;
-            else currentTestimonial = (currentTestimonial <= 0) ? max : currentTestimonial - 1;
-            scrollToTestimonial(currentTestimonial);
-        }
-
-        setInterval(() => scrollTestimonials('right'), 6000);
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1 });
-
-        window.onload = function() {
-            initSlider();
-            renderGallery();
-            renderTestimonials();
-            setTimeout(() => { 
-                scrollToGallery(0); 
-                scrollToTestimonial(0); 
-                initLucide(); 
-            }, 300);
-            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-        };
-
-        window.onresize = () => { 
-            scrollToTestimonial(currentTestimonial); 
-            scrollToGallery(currentGalleryIndex); 
-        };
-    </script>
+    <!-- ========================================
+         SCRIPTS
+         ======================================== -->
+    <script src="scripts.js"></script>
 </body>
+
 </html>
+</CodeContent>
+<parameter name="EmptyFile">false
