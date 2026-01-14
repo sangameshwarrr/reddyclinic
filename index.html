@@ -18,6 +18,10 @@
 
     <title>Dr. Reddy's Ayurvedic Anorectal Clinic & Laser Center | Bhalki</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/logo.png">
+    <link rel="apple-touch-icon" href="./assets/logo.png">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,11 +45,11 @@
                 <!-- Logo Section -->
                 <div class="nav__brand">
                     <a href="#" class="nav__logo" aria-label="Dr. Reddy's Clinic - Home">
-                        <img src="assets/logo.png" alt="Dr. Reddy's Clinic Logo" class="nav__logo-img"
-                            onerror="this.src='assets/logo.jpeg'">
+                        <img src="./assets/logo.png" alt="Dr. Reddy's Clinic Logo" class="nav__logo-img"
+                            onerror="this.src='./assets/logo.jpeg'">
                     </a>
                     <div class="nav__brand-text">
-                        <img src="assets/header.png" alt="Dr. Reddy's - Ayurvedic Proctology Clinic"
+                        <img src="./assets/header.png" alt="Dr. Reddy's - Ayurvedic Proctology Clinic"
                             class="nav__brand-img" onerror="this.style.display='none'">
                     </div>
                 </div>
@@ -63,6 +67,8 @@
                                 role="menuitem">Reviews</a></li>
                         <li class="nav__item" role="none"><a href="#doctor-profile" class="nav__link"
                                 role="menuitem">About Doctor</a></li>
+                        <li class="nav__item" role="none"><a href="#location" class="nav__link"
+                                role="menuitem">Location</a></li>
                     </ul>
                 </div>
 
@@ -88,9 +94,9 @@
             <div class="mobile-menu__panel">
                 <div class="mobile-menu__header">
                     <div class="mobile-menu__brand">
-                        <img src="assets/logo.png" alt="Logo" class="mobile-menu__logo"
-                            onerror="this.src='assets/logo.jpeg'">
-                        <img src="assets/header.png" alt="Dr. Reddy's" class="mobile-menu__brand-text"
+                        <img src="./assets/logo.png" alt="Logo" class="mobile-menu__logo"
+                            onerror="this.src='./assets/logo.jpeg'">
+                        <img src="./assets/header.png" alt="Dr. Reddy's" class="mobile-menu__brand-text"
                             onerror="this.style.display='none'">
                     </div>
                     <button class="mobile-menu__close" id="mobile-close" aria-label="Close menu">
@@ -103,6 +109,7 @@
                     <a href="#gallery" class="mobile-menu__link">Gallery</a>
                     <a href="#testimonials" class="mobile-menu__link">Reviews</a>
                     <a href="#doctor-profile" class="mobile-menu__link">About Doctor</a>
+                    <a href="#location" class="mobile-menu__link">Location</a>
                 </nav>
                 <div class="mobile-menu__footer">
                     <a href="tel:8123198711" class="btn btn--primary btn--lg btn--block">
@@ -406,7 +413,7 @@
             <div class="container">
                 <article class="doctor-card reveal-up">
                     <div class="doctor-card__image">
-                        <img src="assets/doctor.jpeg" alt="Dr. Kapil Reddy - Ayurvedic Proctologist & Anorectal Surgeon"
+                        <img src="./assets/doctor.jpeg" alt="Dr. Kapil Reddy - Ayurvedic Proctologist & Anorectal Surgeon"
                             loading="lazy"
                             onerror="this.src='https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=800'">
                         <div class="doctor-card__badge">
@@ -503,6 +510,50 @@
     </main>
 
     <!-- ========================================
+         LOCATION / MAP SECTION
+         ======================================== -->
+    <section class="location-section" id="location" aria-labelledby="location-title">
+        <div class="container">
+            <header class="section-header reveal-up">
+                <span class="section-header__label section-header__label--gold">Find Us</span>
+                <h2 class="section-header__title" id="location-title">Visit Our Clinic</h2>
+                <div class="section-header__divider section-header__divider--teal"></div>
+            </header>
+
+            <div class="location-content reveal-up">
+                <div class="location-info">
+                    <div class="location-info__card">
+                        <div class="location-info__icon">
+                            <i data-lucide="map-pin" aria-hidden="true"></i>
+                        </div>
+                        <div class="location-info__details">
+                            <h3 class="location-info__title">Dr. Reddy's Ayurvedic Anorectal Clinic & Laser Center</h3>
+                            <p class="location-info__address">Near Jadhav Hospital, Lectures Colony,<br>Bhalki – 585328, Dist. Bidar (Karnataka)</p>
+                            <a href="https://www.google.com/maps/place/Dr.Reddy's+Ayurvedic+Anorectal+Clinic+%26+Laser+Center/@18.0484858,77.2124189,717m"
+                               target="_blank" rel="noopener" class="btn btn--primary btn--sm">
+                                <i data-lucide="navigation" class="btn__icon" aria-hidden="true"></i>
+                                Get Directions
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="location-map">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3785.8234567890123!2d77.2124189!3d18.0484858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcee162c62962af%3A0x302e6a9c2beb4632!2sDr.Reddy's%20Ayurvedic%20Anorectal%20Clinic%20%26%20Laser%20Center%20(%20PILES%2CFISTULA%2CFISSURE%2C%20PILONIDAL%20SINUS%20)!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
+                        width="100%"
+                        height="400"
+                        style="border:0; border-radius: 16px;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Dr. Reddy's Clinic Location">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
          FOOTER
          ======================================== -->
     <footer class="footer" id="footer" role="contentinfo">
@@ -545,6 +596,7 @@
                         <a href="#gallery" class="footer__link">Gallery</a>
                         <a href="#testimonials" class="footer__link">Reviews</a>
                         <a href="#doctor-profile" class="footer__link">About Doctor</a>
+                        <a href="#location" class="footer__link">Location</a>
                     </nav>
                 </div>
 

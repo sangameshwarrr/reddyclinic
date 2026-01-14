@@ -87,17 +87,17 @@ const slidesData = [
   {
     title: "Advanced Cure for PILES",
     desc: "Ayurvedic formulations & signature Ksharakarma treatment for permanent relief.",
-    image: "assets/slider-1.png"
+    image: "./assets/slider-1.png"
   },
   {
     title: "IFTak Technique for FISTULA",
     desc: "Complementing Kshara Sutra for high success rates without sphincter damage.",
-    image: "assets/slider-2.png"
+    image: "./assets/slider-2.png"
   },
   {
     title: "Laser-Assisted SINUS Care",
     desc: "Kshara Karma with modern laser assistance for pilonidal sinus treatment.",
-    image: "assets/slider-3.png"
+    image: "./assets/slider-3.png"
   }
 ];
 
@@ -224,13 +224,13 @@ function prevSlide() {
 // ========================================
 
 const galleryImages = [
-  { id: 1, src: "assets/p1.jpeg", caption: "Successful Piles Treatment" },
-  { id: 2, src: "assets/p2.jpeg", caption: "Complex Fistula Case Recovery" },
-  { id: 3, src: "assets/p3.jpeg", caption: "Laser assisted results" },
-  { id: 4, src: "assets/p4.jpeg", caption: "Patient Post-Op Result" },
-  { id: 5, src: "assets/p5.jpeg", caption: "Clinical Documentation" },
-  { id: 6, src: "assets/p6.jpeg", caption: "Treatment Progress Case" },
-  { id: 7, src: "assets/p7.jpeg", caption: "Advanced Pilonidal Care" }
+  { id: 1, src: "./assets/p1.jpeg", caption: "Successful Piles Treatment" },
+  { id: 2, src: "./assets/p2.jpeg", caption: "Complex Fistula Case Recovery" },
+  { id: 3, src: "./assets/p3.jpeg", caption: "Laser assisted results" },
+  { id: 4, src: "./assets/p4.jpeg", caption: "Patient Post-Op Result" },
+  { id: 5, src: "./assets/p5.jpeg", caption: "Clinical Documentation" },
+  { id: 6, src: "./assets/p6.jpeg", caption: "Treatment Progress Case" },
+  { id: 7, src: "./assets/p7.jpeg", caption: "Advanced Pilonidal Care" }
 ];
 
 let currentGalleryIndex = 0;
@@ -343,8 +343,22 @@ const testimonialsData = [
     name: "Amarja Mirasdar",
     initials: "AM",
     color: "teal",
-    text: "Best service by the experienced doctor, most recommended for piles pain relief.",
-    meta: "Verified Patient"
+    text: "Best service by the experienced doctor, most recommended for piles pain relief with less complications.",
+    meta: "1 review • 1 month ago"
+  },
+  {
+    name: "Ravi Gaunalli",
+    initials: "RG",
+    color: "gold",
+    text: "My relative having piles since 5 years, he had untolerable pain after going to washroom. But after taking sir's treatment he became fine 100 percent in one week and now not at all pain. He is fine now. Thank you sir!",
+    meta: "3 reviews • 1 month ago"
+  },
+  {
+    name: "Anand RN",
+    initials: "AR",
+    color: "orange",
+    text: "One of the best clinic for piles treatment. Doctor is very professional and the way he treats is so polite. Good to refer clinic. Thanks Dr. Reddy sir.",
+    meta: "9 reviews • 1 year ago"
   }
 ];
 
