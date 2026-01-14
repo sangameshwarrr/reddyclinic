@@ -225,7 +225,7 @@ function prevSlide() {
 
 const galleryImages = [
   { id: 1, src: "./assets/p1.jpeg", caption: "Successful Piles Treatment" },
-  { id: 2, src: "./assets/p2.jpeg", caption: "Complex Fistula Case Recovery" },
+  { id: 2, src: "./assets/p2.jpeg", caption: "Grade 1 hemorrhoids with mucosal prolapse" },
   { id: 3, src: "./assets/p3.jpeg", caption: "Laser assisted results" },
   { id: 4, src: "./assets/p4.jpeg", caption: "Patient Post-Op Result" },
   { id: 5, src: "./assets/p5.jpeg", caption: "Clinical Documentation" },
